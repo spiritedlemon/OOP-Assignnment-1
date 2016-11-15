@@ -12,7 +12,7 @@ void setup()
   home_screen();
 }
 
-
+//Global Variables
 
 int timeH = hour();      //Hour  --  Global variables used in home_screen() and clock()
 int timeM = minute();    //Minute
@@ -21,8 +21,9 @@ int day = day();                 //Global variables used in home_screen() and cl
 int month = month();
 int year = year();
 
+int temp = 12;    //Changes the color of the font based on temperature -- Can be changed in home_screen or cloc
 
-
+int spacing = 5; //( (height * width)/96000 );       //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
 
 
 //Function for screen zero
@@ -125,23 +126,23 @@ void home_screen()
   textAlign(RIGHT);
   if(timeH > 9)  //If time is < 10 it only displays one digit so this if statement should solve it
   {
-    text(timeH, width/2 - 10, height * 0.1f);
+    text(timeH, width/2 - (spacing*2), height * 0.1f);
   }
   else
   {
-    text('0', width/2 - 10, height * 0.1f);
-    text(timeH, width/2 - 30, height * 0.1f);
+    text('0', width/2 - (spacing*2), height * 0.1f);
+    text(timeH, width/2 - (spacing*6), height * 0.1f);
   }
   
   textAlign(LEFT);
   if(timeM > 9)    //If time is < 10 it only displays one digit so this if statement should solve it
   {
-    text(timeM, width/2 + 10, height * 0.1f);
+    text(timeM, width/2 + (spacing*2), height * 0.1f);
   }
   else
   {
-    text('0', width/2 + 10, height * 0.1f);
-    text(timeM, width/2 + 30, height * 0.1f);
+    text('0', width/2 + (spacing*2), height * 0.1f);
+    text(timeM, width/2 + (spacing*6), height * 0.1f);
   }
   
   textAlign(CENTER);
@@ -149,13 +150,23 @@ void home_screen()
   
   
   //Displaying the Date
-  //text(day"/"month"/"year, width/2, height * 0.2f);
-  
-  int temp = 12;    //Changes the color of the font based on temperature
   textAlign(RIGHT);
-  text(temp, width/2 - 5, height * 0.3f);
+  text(day, width/2 - (spacing*9), height * 0.2f);
+  textAlign(CENTER);
+  text("/", width/2 - (spacing*7), height * 0.2f);
+  textAlign(CENTER);
+  text(month, width/2 - (spacing*2), height * 0.2f);
+  textAlign(CENTER);
+  text("/", width/2 + (spacing*3), height * 0.2f);
   textAlign(LEFT);
-  text("'C", width/2 + 5, height * 0.3f);
+  text(year, width/2 + (spacing*5), height * 0.2f);
+  
+  
+  //Displaying temp 
+  textAlign(RIGHT);
+  text(temp, width/2 - (spacing), height * 0.3f);
+  textAlign(LEFT);
+  text("'C", width/2 + (spacing), height * 0.3f);
   
   
   
