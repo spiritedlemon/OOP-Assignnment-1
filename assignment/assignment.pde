@@ -9,7 +9,6 @@ void setup()
   size(800, 600);    //I'd suggest a wider screen as it looks better -> size(800,600)
   background(50);    //'50' looks better than just black
   
-  home_screen();
 }
 
 //Global Variables
@@ -23,9 +22,9 @@ int year = year();
 
 int temp = 12;    //Changes the color of the font based on temperature -- Can be changed in home_screen or cloc
 
-int spacing = 5; //( (height * width)/96000 );       //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
+int spacing = 5; //( (height * width)/96000 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
 
-int speed = 0; //Speed in km/h
+int speed = 0; //Speed in km/h  -- Maybe give option for m/h?
 
 
 //Function for screen zero
@@ -33,7 +32,6 @@ void home_screen()
 {
   stroke(0, 255, 255);
   fill(0);
-  
   
   
   
@@ -86,6 +84,7 @@ void home_screen()
      stroke(c);
      line(x, i, x+x2, i);
    }
+   
   
   //Gauge two
   c1 = color(255, 255, 0);  //yellow
@@ -107,6 +106,12 @@ void home_screen()
   
   stroke(0, 255, 255);
   
+  
+  //'Tool Tips' for two gauges
+  //Fuel first:
+  //if( (mouseX > width/9) && (mouseX < 2*width/9) && (mouseY < height * 0.85f) && (mouseY > height * 0.1f) )
+  //{
+  //}
   
   
   
@@ -183,8 +188,6 @@ void home_screen()
   textAlign(CENTER);
   text(speed, width/2, height * .75f);
   
- 
-  
 }//End of home_screen() 
 
 
@@ -214,6 +217,7 @@ void clock()
 
 void draw()
 {
+    home_screen();
   
   
 }
