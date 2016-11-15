@@ -24,6 +24,7 @@ void home_screen()
   
   
   
+  
   //Drawing boxes at the base of the screen to navigate to other menus
   rect( 0, (height - (height/10) ), ( width - 1 ), height );
   line( ( width/3), (height - (height/10) ), ( width/3), height);
@@ -43,11 +44,13 @@ void home_screen()
   fill(0); //Revert fill to black for later shapes
   
   
+  
+  
+  
   //Drawing first gauge (Fuel)
   rect( (width/9), (height/10), (width/9), (height - (height/4) ) );
   //Now the secong gauge (Electricity)
   rect( (width - (width/9 * 2) ), (height/10), width/9 , (height - (height/4) ) );
-  
   
   //Filling the gauges --  [(255, 255, 0) -> (255, 0, 0)] [yellow -> Red] 
   color c1, c2, c;
@@ -72,7 +75,6 @@ void home_screen()
      line(x, i, x+x2, i);
    }
   
-  
   //Gauge two
   c1 = color(255, 255, 0);  //yellow
   c2 = color(192, 192, 192); //silver
@@ -92,19 +94,26 @@ void home_screen()
    }
   
   stroke(0, 255, 255);
-  fill(0);
   
   
   
   
-  //Placing the clock on screen
-  
-  
-  //Displaying speed under the line and time/Date/Temp over it
-  //Initial dividing line
+  //'Center Line' - Divides up the home screen
   line(width*3/9, height/3, width*6/9, height/3);
   
-  //Speed displayed below the line (currently just '00')
+  
+  //Displaying text above the center line  --  All this was implemented above, i'm leaving it here for clarity
+  
+  //PFont f;
+  //float fontSize = ( (height * width)/13333.33 );   //Font size scales with chosen display dimensions
+  //f = createFont("Arial", 16, true); // true -> anti-aliasing on
+  //textFont(f, fontSize);  //sets font size of 'PFont' f
+  
+  fill(255);
+  
+  
+  
+  //Speed displayed below the line (currently just two boxes)
   //First number:
   rect(15 + width/3, height/2, width * .135f, height *0.35f );
   
