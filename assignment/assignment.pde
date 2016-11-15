@@ -3,6 +3,7 @@
 //https://github.com/spiritedlemon/OOP-Assignnment-1
 
 
+
 void setup()
 {
   size(800, 600);    //I'd suggest a wider screen as it looks better
@@ -10,7 +11,10 @@ void setup()
   home_screen();
 }
 
+
+
 //int time;  //Global variable used in home_screen() and clock()
+
 
 //Function for screen zero
 void home_screen()
@@ -18,13 +22,23 @@ void home_screen()
   stroke(0, 255, 255);
   fill(0);
   
+  
+  
   //Drawing boxes at the base of the screen to navigate to other menus
   rect( 0, (height - (height/10) ), ( width - 1 ), height );
   line( ( width/3), (height - (height/10) ), ( width/3), height);
   line( ( width - (width/3) ), (height - (height/10) ), ( width - (width/3) ), height);
   
   //Filling in the boxes at base of screen
+  PFont f;
+  f = createFont("Arial", 16, true); // true -> anti-aliasing on
+  textFont(f, 36);
+  fill(255);
+  text("Air Con", width * 1/9, height - 10);
+  //text("Air Con", width * 1/9, height - 10);
+  //text("Air Con", width * 1/9, height - 10);
   
+  fill(0); //Revert fill to black for later shapes
   
   
   //Drawing first gauge (Fuel)
@@ -34,13 +48,13 @@ void home_screen()
   
   
   //Filling the gauges --  [(255, 255, 0) -> (255, 0, 0)] [yellow -> Red] 
-  color cy, cr, c;
+  color c1, c2, c;
   int i, x, y, x2, y2;
   float amt;
   
   //Gauge one
-  c1 = color(255, 255, 0);
-  c2 = color(255, 0, 0);
+  c1 = color(255, 255, 0);  //yellow
+  c2 = color(255, 0, 0);    //red
   
   x = width/9;
   y = height/10; 
@@ -56,20 +70,32 @@ void home_screen()
      line(x, i, x+x2, i);
    }
   
-  //Gauge two
-  c1 = color(255, 255, 0);
-  c2 = color(192, 192, 192);
   
-  x = (width - (width/9 * 2);
+  //Gauge two
+  c1 = color(255, 255, 0);  //yellow
+  c2 = color(192, 192, 192); //silver
+  
+  x = (width - (width/9 * 2));
   y = height/10; 
   x2 = width/9; 
   y2 = ( height - height/4 );
   
+  //Same for loop again with different location and colors above
+  for (i = y; i <= y+y2; i++)
+   {
+     amt = map(i, y, y+y2, 0, 1);  //amt = point between the two colors (float - as its a decimal number)
+     c = lerpColor(c1, c2, amt);   
+     stroke(c);
+     line(x, i, x+x2, i);
+   }
   
   stroke(0, 255, 255);
   fill(0);
-  //Placing the clock on screen
   
+  
+  
+  
+  //Placing the clock on screen
   
   
   //Displaying speed under the line and time/Date/Temp over it
@@ -85,6 +111,7 @@ void home_screen()
  
   
 }//End of home_screen() 
+
 
 
 
