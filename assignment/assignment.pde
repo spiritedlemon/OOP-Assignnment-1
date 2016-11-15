@@ -7,13 +7,19 @@
 void setup()
 {
   size(800, 600);    //I'd suggest a wider screen as it looks better -> size(800,600)
-  background(50);    //'50' chosen as it looks better
+  background(50);    //'50' looks better than just black
+  
   home_screen();
 }
 
 
 
-//int time;  //Global variable used in home_screen() and clock()
+int timeH = hour();  //Hour  --  Global variables used in home_screen() and clock()
+int timeM = minute();  //Minute
+int timeS = second();  //Second
+
+
+
 
 
 //Function for screen zero
@@ -98,6 +104,7 @@ void home_screen()
   
   
   
+  
   //'Center Line' - Divides up the home screen
   line(width*3/9, height/3, width*6/9, height/3);
   
@@ -110,8 +117,19 @@ void home_screen()
   //textFont(f, fontSize);  //sets font size of 'PFont' f
   
   fill(255);
+  textAlign(RIGHT);
+  text(timeH, width/2 - 10, height * 0.1f);
+  textAlign(LEFT);
+  text(timeM, width/2 + 10, height * 0.1f);
+  textAlign(CENTER);
+  text(" : ", width/2, height * 0.1f);
+  text("01/01/2016", width/2, height * 0.2f);
+  text("19'C", width/2, height * 0.3f);
   
   
+  
+  
+  fill(0); // Revert fill to black for later shapes
   
   //Speed displayed below the line (currently just two boxes)
   //First number:
