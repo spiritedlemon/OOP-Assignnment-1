@@ -1,5 +1,6 @@
 //OOP-Assignment     --     DT 228/2     --     Simon O'Leary ( C15413218 )
 //Electronic dashboard for a car which displays speed, fuel level, allows user to change the air conditioning and more
+//https://github.com/spiritedlemon/OOP-Assignnment-1
 
 
 void setup()
@@ -37,12 +38,19 @@ void home_screen()
   //Placing the clock on screen
   
   
-  //Displaying speed
-  //Two concentric p-shapes will display zero 
+  //Displaying speed using a p-shape and a rectangle
+  //First p-shape (could just use a rectangle actually...)
   beginShape();
-  vertex(width/3, height/2);
-  vertex( (width - width/3), height/2);
+  vertex(width/3, height/5);
+  vertex( (width - width/3), height/5 );
+  vertex( (width - width/3), (height * .85f) );
+  vertex(width/3, (height * .85f) );
+  vertex(width/3, height/5);
   endShape();
+  
+  //Second Rectangle
+  fill(50);
+  rect( (width * 4/9), height/3, (width * 1/9), height * 0.4f);
 }
 
 //Function for screen one -- Air conditioning
