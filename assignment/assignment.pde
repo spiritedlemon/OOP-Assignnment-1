@@ -6,7 +6,7 @@
 
 void setup()
 {
-  size(800, 600);    //I'd suggest a wider screen as it looks better
+  size(800, 600);    //I'd suggest a wider screen as it looks better -> size(800,600)
   background(50);    //'50' chosen as it looks better
   home_screen();
 }
@@ -31,12 +31,14 @@ void home_screen()
   
   //Filling in the boxes at base of screen
   PFont f;
+  float fontSize = ( (height * width)/13333.33 );   //Font size scales with chosen display dimensions
   f = createFont("Arial", 16, true); // true -> anti-aliasing on
-  textFont(f, 36);
+  textFont(f, fontSize);  //sets font size of 'PFont' f
   fill(255);
-  text("Air Con", width * 1/9, height - 10);
-  //text("Air Con", width * 1/9, height - 10);
-  //text("Air Con", width * 1/9, height - 10);
+  
+  text("Air Con", width * 0.08f, height * 0.975f);
+  text("System", width * 0.425f, height * 0.975f);
+  text("Clock", width * 0.785f, height * 0.975f);
   
   fill(0); //Revert fill to black for later shapes
   
