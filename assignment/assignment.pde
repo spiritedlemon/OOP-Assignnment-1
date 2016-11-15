@@ -149,9 +149,13 @@ void home_screen()
   
   
   //Displaying the Date
-  text(day+month+year, width/2, height * 0.2f);
+  //text(day"/"month"/"year, width/2, height * 0.2f);
   
-  text("19'C", width/2, height * 0.3f);
+  int temp = 12;    //Changes the color of the font based on temperature
+  textAlign(RIGHT);
+  text(temp, width/2 - 5, height * 0.3f);
+  textAlign(LEFT);
+  text("'C", width/2 + 5, height * 0.3f);
   
   
   
