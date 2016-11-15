@@ -25,6 +25,8 @@ int temp = 12;    //Changes the color of the font based on temperature -- Can be
 
 int spacing = 5; //( (height * width)/96000 );       //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
 
+int speed = 0; //Speed in km/h
+
 
 //Function for screen zero
 void home_screen()
@@ -171,14 +173,16 @@ void home_screen()
   
   
   
-  fill(0); // Revert fill to black for later shapes
   
-  //Speed displayed below the line (currently just two boxes)
-  //First number:
-  rect(15 + width/3, height/2, width * .135f, height *0.35f );
+  fill(0, 255, 255);
+  //Speed displayed below the line using the text() function
   
-  //Second number:
-  rect(width/2 + 15 , height/2, width  * .135f, height *0.35f );
+  fontSize = 256;   //Font size scales with chosen display dimensions
+  textFont(f, fontSize);  //sets font size of 'PFont' f
+  
+  textAlign(CENTER);
+  text(speed, width/2, height * .75f);
+  
  
   
 }//End of home_screen() 
