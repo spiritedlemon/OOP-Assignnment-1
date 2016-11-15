@@ -46,7 +46,11 @@ void home_screen()
   line(width*3/9, height/3, width*6/9, height/3);
   
   //Speed displayed below the line (currently just '00')
+  //First number:
+  rect(15 + width/3, height/2, width * .135f, height *0.35f );
   
+  //Second number:
+  rect(width/2 + 15 , height/2, width  * .135f, height *0.35f );
   
 }
 
