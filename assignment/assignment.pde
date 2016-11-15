@@ -14,9 +14,12 @@ void setup()
 
 
 
-int timeH = hour();  //Hour  --  Global variables used in home_screen() and clock()
-int timeM = minute();  //Minute
-int timeS = second();  //Second
+int timeH = hour();      //Hour  --  Global variables used in home_screen() and clock()
+int timeM = minute();    //Minute
+
+int day = day();                 //Global variables used in home_screen() and clock()
+int month = month();
+int year = year();
 
 
 
@@ -117,13 +120,37 @@ void home_screen()
   //textFont(f, fontSize);  //sets font size of 'PFont' f
   
   fill(255);
+  
+  //For the time
   textAlign(RIGHT);
-  text(timeH, width/2 - 10, height * 0.1f);
+  if(timeH > 9)  //If time is < 10 it only displays one digit so this if statement should solve it
+  {
+    text(timeH, width/2 - 10, height * 0.1f);
+  }
+  else
+  {
+    text('0', width/2 - 10, height * 0.1f);
+    text(timeH, width/2 - 30, height * 0.1f);
+  }
+  
   textAlign(LEFT);
-  text(timeM, width/2 + 10, height * 0.1f);
+  if(timeM > 9)    //If time is < 10 it only displays one digit so this if statement should solve it
+  {
+    text(timeM, width/2 + 10, height * 0.1f);
+  }
+  else
+  {
+    text('0', width/2 + 10, height * 0.1f);
+    text(timeM, width/2 + 30, height * 0.1f);
+  }
+  
   textAlign(CENTER);
   text(" : ", width/2, height * 0.1f);
-  text("01/01/2016", width/2, height * 0.2f);
+  
+  
+  //Displaying the Date
+  text(day+month+year, width/2, height * 0.2f);
+  
   text("19'C", width/2, height * 0.3f);
   
   
