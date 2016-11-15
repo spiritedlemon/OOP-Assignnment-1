@@ -33,24 +33,21 @@ void home_screen()
   rect( (width - (width/9 * 2) ), (height/10), width/9 , (height - (height/4) ) );
   
   
-  //Filling the gauges --  [(255, 255, 0) -> (255, 0, 0)]
+  //Filling the gauges --  [(255, 255, 0) -> (255, 0, 0)] [yellow -> Red]
+  
+  
   
   //Placing the clock on screen
   
   
-  //Displaying speed using a p-shape and a rectangle
-  //First p-shape (could just use a rectangle actually...)
-  beginShape();
-  vertex(width/3, height/5);
-  vertex( (width - width/3), height/5 );
-  vertex( (width - width/3), (height * .85f) );
-  vertex(width/3, (height * .85f) );
-  vertex(width/3, height/5);
-  endShape();
+  //Displaying speed under the line and time/Date/Temp over it
   
-  //Second Rectangle
-  fill(50);
-  rect( (width * 4/9), height/3, (width * 1/9), height * 0.4f);
+  //Initial dividing line
+  line(width*3/9, height/3, width*6/9, height/3);
+  
+  //Speed displayed below the line (currently just '00')
+  
+  
 }
 
 //Function for screen one -- Air conditioning
