@@ -34,13 +34,13 @@ void home_screen()
   
   
   //Filling the gauges --  [(255, 255, 0) -> (255, 0, 0)] [yellow -> Red] 
-  int Y_AXIS = 1;
   color cy, cr, c;
   int i, x, y, x2, y2;
   float amt;
   
-  cy = color(255, 255, 0);
-  cr = color(255, 0, 0);
+  //Gauge one
+  c1 = color(255, 255, 0);
+  c2 = color(255, 0, 0);
   
   x = width/9;
   y = height/10; 
@@ -50,17 +50,23 @@ void home_screen()
   //for loop to change the gradient in relation to the y-axis
   for (i = y; i <= y+y2; i++)
    {
-     amt = map(i, y, y+y2, 0, 1);
-     c = lerpColor(cy, cr, amt);
+     amt = map(i, y, y+y2, 0, 1);  //amt = point between the two colors (float - as its a decimal number)
+     c = lerpColor(c1, c2, amt);   
      stroke(c);
      line(x, i, x+x2, i);
    }
-      
   
-  //rect( (width/9), (height/10), (width/9), height - (height/4) );
+  //Gauge two
+  c1 = color(255, 255, 0);
+  c2 = color(192, 192, 192);
+  
+  x = (width - (width/9 * 2);
+  y = height/10; 
+  x2 = width/9; 
+  y2 = ( height - height/4 );
   
   
-  
+  stroke(0, 255, 255);
   fill(0);
   //Placing the clock on screen
   
