@@ -7,7 +7,7 @@ void setup()
 {
   size(800, 600);    //I'd suggest a wider screen as it looks better
   background(50);    //'50' chosen as it looks better
-  
+  home_screen();
 }
 
 //int time;  //Global variable used in home_screen() and clock()
@@ -23,7 +23,7 @@ void home_screen()
   line( ( width/3), (height - (height/10) ), ( width/3), height);
   line( ( width - (width/3) ), (height - (height/10) ), ( width - (width/3) ), height);
   
-  //Filling in the boxes
+  //Filling in the boxes at base of screen
   
   
   
@@ -33,15 +33,40 @@ void home_screen()
   rect( (width - (width/9 * 2) ), (height/10), width/9 , (height - (height/4) ) );
   
   
-  //Filling the gauges --  [(255, 255, 0) -> (255, 0, 0)] [yellow -> Red]
+  //Filling the gauges --  [(255, 255, 0) -> (255, 0, 0)] [yellow -> Red] 
+  int Y_AXIS = 1;
+  color cy, cr, c;
+  int i, x, y, x2, y2;
+  float amt;
+  
+  cy = color(255, 255, 0);
+  cr = color(255, 0, 0);
+  
+  x = width/9;
+  y = height/10; 
+  x2 = width/9; 
+  y2 = ( height - height/4 );
+  
+  //for loop to change the gradient in relation to the y-axis
+  for (i = y; i <= y+y2; i++)
+   {
+     amt = map(i, y, y+y2, 0, 1);
+     c = lerpColor(cy, cr, amt);
+     stroke(c);
+     line(x, i, x+x2, i);
+   }
+      
+  
+  //rect( (width/9), (height/10), (width/9), height - (height/4) );
   
   
   
+  fill(0);
   //Placing the clock on screen
   
   
-  //Displaying speed under the line and time/Date/Temp over it
   
+  //Displaying speed under the line and time/Date/Temp over it
   //Initial dividing line
   line(width*3/9, height/3, width*6/9, height/3);
   
@@ -51,8 +76,11 @@ void home_screen()
   
   //Second number:
   rect(width/2 + 15 , height/2, width  * .135f, height *0.35f );
+ 
   
-}
+}//End of home_screen() 
+
+
 
 //Function for screen one -- Air conditioning
 void ac()
@@ -78,7 +106,7 @@ void clock()
 
 void draw()
 {
-  home_screen();
+  
   
 }
 
