@@ -22,7 +22,7 @@ int day = day();                 //Global variables used in home_screen() and cl
 int month = month();
 int year = year();
 
-int temp = 12;    //Changes the color of the font based on temperature -- Can be changed in home_screen or cloc
+int tempEX= -10;    //Changes the color of the font based on temperature -- Can be changed in home_screen or cloc  --  range of '-10' to '40'
 
 int spacing = 5; //( (height * width)/96000 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
 
@@ -175,10 +175,27 @@ void home_screen()
   
   
   //Displaying temp 
-  textAlign(RIGHT);
-  text(temp, width/2 - (spacing), height * 0.3f);
   textAlign(LEFT);
   text("'C", width/2 + (spacing), height * 0.3f);
+  
+  
+  int scaleT1 = 0;
+  int scaleT2 = 0;    //Variables used to change the color of the text based on current temperature
+  
+  scaleT1 = (tempEX + 10) * 5;  //Current temp +10 (to avoid negatives) and then *5 (used for changing the color)
+  scaleT2 = 250 - scaleT1;
+  
+  textAlign(RIGHT);
+  if(tempEX>= -10 && tempEX<= 40)
+  {
+    fill(scaleT1, 0, scaleT2);
+    text(tempEX, width/2 - (spacing), height * 0.3f);
+  }
+  else
+  {
+    text("--", width/2 - (spacing), height * 0.3f);
+  }
+  
   
   
   
@@ -228,12 +245,12 @@ void clock()
 
 void draw()
 {
-    home_screen();
+    home_screen();  
   //keyPressed();
   
 }
 
-void mousePressed()
+void mousePressed()    //When either left or right mouse button is clicked this function opens another function based on what was clicked
 {
  if( (mouseX < (width/3) ) && (mouseY > (height * 0.9f) ) )
   {
