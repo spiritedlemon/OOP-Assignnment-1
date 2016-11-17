@@ -28,11 +28,14 @@ int spacing = 5; //( (height * width)/96000 );    //This is used to space out di
 
 int speed = 0; //Speed in km/h  
 
+int screen = 0; //Menu selection -- 0=home, 1=ac(), 2=system(), 3=clock()
+
+
 
 //Function for screen zero
 void home_screen()
 {
-  stroke(0, 255, 255);
+  stroke(0, 255, 255);  //cyan
   fill(0);
   
   
@@ -226,56 +229,78 @@ void home_screen()
 //Function for screen one -- Air conditioning
 void ac()
 {
-   println("In ac() now");
+   
+   stroke(65, 105, 255);
+   background(0);
 }
 
 //Function for screen two
 void system()
 {
-  println("In system() now");
+  
 }
 
 
 //Function for screen three
 void clock()
 {
-   println("In clock() now");
+  
 }
 
 
 void draw()
 {
-    home_screen();  
-  //keyPressed();
+  
+  switch(screen)
+  {
+    case 0:
+      home_screen();
+      break;
+      
+    case 1:
+      ac();
+      break;
+      
+    case 2:
+      system();
+      break;
+      
+    case 3:
+      clock();
+      break;
+    
+  }
   
 }
 
 void mousePressed()    //When either left or right mouse button is clicked this function opens another function based on what was clicked
 {
- if( (mouseX < (width/3) ) && (mouseY > (height * 0.9f) ) )
-  {
-    ac();
-  }
-  else if( (mouseX > (width/3) ) && (mouseX < (2 * width/3) ) && (mouseY > (height * 0.9f) ) )
-  {
-    system();
-  }
-  else if( (mouseX > (2 * width/3) ) && (mouseY > (height * 0.9f) ) )
-  {
-    clock();
-  }
   
+   if( (mouseX < (width/3) ) && (mouseY > (height * 0.9f) ) )
+    {
+      println("In ac() now");     //Alerting user which function currently is in use  --  Mainly for eror checking
+      screen = 1;
+    }
+    else if( (mouseX > (width/3) ) && (mouseX < (2 * width/3) ) && (mouseY > (height * 0.9f) ) )
+    {
+      println("In system() now");
+      screen = 2;
+    }
+    else if( (mouseX > (2 * width/3) ) && (mouseY > (height * 0.9f) ) )
+    {
+      println("In clock() now");
+      screen = 3;
+    }
   
 }
 
-/*
+
 //Function to change screens with keys
 void keyPressed()
 {
-  if (key >= '0' && key <='9')
+  if (key >= '0' && key <='3')
   {
-    mode = key - '0';
+    screen = key - '0';
   }
+  println(screen);
 }
-
-*/
