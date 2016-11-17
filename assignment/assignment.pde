@@ -1,5 +1,7 @@
 //OOP-Assignment     --     DT 228/2     --     Simon O'Leary ( C15413218 )
+
 //Electronic dashboard for a car which displays speed, fuel level, allows user to change the air conditioning and more
+
 //https://github.com/spiritedlemon/OOP-Assignnment-1
 
 
@@ -7,7 +9,7 @@
 void setup()
 {
   size(800, 600);    //I'd suggest a wider screen as it looks better -> size(800,600)
-  background(50);    //'50' looks better than just black
+  background(50);    //'50' (gray) looks better than just black
   
 }
 
@@ -24,7 +26,7 @@ int temp = 12;    //Changes the color of the font based on temperature -- Can be
 
 int spacing = 5; //( (height * width)/96000 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
 
-int speed = 0; //Speed in km/h  -- Maybe give option for m/h?
+int speed = 0; //Speed in km/h  
 
 
 //Function for screen zero
@@ -106,12 +108,12 @@ void home_screen()
   
   stroke(0, 255, 255);
   
+  /*
+  'Tool Tips' for two gauges  --  Scrapped temporarily
+  Fuel first:
+  if( (mouseX > width/9) && (mouseX < 2*width/9) && (mouseY < height * 0.85f) && (mouseY > height * 0.1f) ) {}
+  */
   
-  //'Tool Tips' for two gauges
-  //Fuel first:
-  //if( (mouseX > width/9) && (mouseX < 2*width/9) && (mouseY < height * 0.85f) && (mouseY > height * 0.1f) )
-  //{
-  //}
   
   
   
@@ -186,7 +188,15 @@ void home_screen()
   textFont(f, fontSize);  //sets font size of 'PFont' f
   
   textAlign(CENTER);
-  text(speed, width/2, height * .75f);
+  if(speed > -1 && speed < 221)
+  {
+    text(speed, width/2, height * .75f);
+  }
+  else
+  {
+    text("ERR", width/2, height * .75f);
+  }
+  
   
 }//End of home_screen() 
 
@@ -218,7 +228,7 @@ void clock()
 void draw()
 {
     home_screen();
-  
+  //keyPressed();
   
 }
 
