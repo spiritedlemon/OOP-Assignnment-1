@@ -35,9 +35,9 @@ int screen = 0; //Menu selection -- 0=home, 1=ac(), 2=system(), 3=clock()
 //Function for screen zero
 void home_screen()
 {
+  
   stroke(0, 255, 255);  //cyan
   fill(0);
-  
   
   
   //Drawing boxes at the base of the screen to navigate to other menus
@@ -229,7 +229,7 @@ void home_screen()
 //Function for screen one -- Air conditioning
 void ac()
 {
-   
+  
    stroke(65, 105, 255);
    background(0);
 }
@@ -278,7 +278,7 @@ void mousePressed()    //When either left or right mouse button is clicked this 
   
    if( (mouseX < (width/3) ) && (mouseY > (height * 0.9f) ) )
     {
-      println("In ac() now");     //Alerting user which function currently is in use  --  Mainly for eror checking
+       println("In ac() now");     //Alerting user which function currently is in use  --  Mainly for eror checking
       screen = 1;
     }
     else if( (mouseX > (width/3) ) && (mouseX < (2 * width/3) ) && (mouseY > (height * 0.9f) ) )
@@ -301,6 +301,11 @@ void keyPressed()
   if (key >= '0' && key <='3')
   {
     screen = key - '0';
+    println(screen);
   }
-  println(screen);
+  else
+  {
+    println("Not Available");
+  }
+  
 }
