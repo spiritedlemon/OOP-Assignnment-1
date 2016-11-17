@@ -49,9 +49,12 @@ void home_screen()
   textFont(f, fontSize);  //sets font size of 'PFont' f
   fill(255);
   
-  text("Air Con", width * 0.08f, height * 0.975f);
-  text("System", width * 0.425f, height * 0.975f);
-  text("Clock", width * 0.785f, height * 0.975f);
+  text("Air Con", width * 0.15f, height * 0.975f);
+  
+  text("System", width * 0.5f, height * 0.975f);
+  
+  text("Clock", width * 0.825f, height * 0.975f);
+  
   
   fill(0); //Revert fill to black for later shapes
   
@@ -206,22 +209,20 @@ void home_screen()
 //Function for screen one -- Air conditioning
 void ac()
 {
-  
+   println("In ac() now");
 }
 
 //Function for screen two
 void system()
 {
-  
-  
+  println("In system() now");
 }
 
 
 //Function for screen three
 void clock()
 {
-  
-  
+   println("In clock() now");
 }
 
 
@@ -232,6 +233,23 @@ void draw()
   
 }
 
+void mousePressed()
+{
+ if( (mouseX < (width/3) ) && (mouseY > (height * 0.9f) ) )
+  {
+    ac();
+  }
+  else if( (mouseX > (width/3) ) && (mouseX < (2 * width/3) ) && (mouseY > (height * 0.9f) ) )
+  {
+    system();
+  }
+  else if( (mouseX > (2 * width/3) ) && (mouseY > (height * 0.9f) ) )
+  {
+    clock();
+  }
+  
+  
+}
 
 /*
 //Function to change screens with keys
