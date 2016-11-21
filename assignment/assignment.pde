@@ -15,21 +15,25 @@ void setup()
 
 //Global Variables
 
+int spacing = 5; //( (height * width)/96000 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
+
 int timeH = hour();      //Hour  --  Global variables used in home_screen() and clock()
 int timeM = minute();    //Minute
 
-int day = day();                 //Global variables used in home_screen() and clock()
+int day = day();         //Global variables used in home_screen() and clock()
 int month = month();
 int year = year();
 
 int tempEX = 0;    //Changes the color of the font based on temperature --  range of '-10' to '40' --  Read in from file
 int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of inside the car  --  range of '16' to '28'
 
-int spacing = 5; //( (height * width)/96000 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
-
 int speed = 0; //Speed in km/h  --  Read in from file
 
 int screen = 1; //Menu selection -- 0=home, 1=ac(), 2=system(), 3=clock()
+
+//Variables used to display whether the windows are defrosting or not
+int front = 0;
+int rear = 0;
 
 
 
@@ -147,7 +151,7 @@ void home_screen()
   else
   {
     text('0', width/2 - (spacing*2), height * 0.1f);
-    text(timeH, width/2 - (spacing*6), height * 0.1f);
+    text(timeH, width/2 - (spacing*6), height * 0.1f);    //Reminder spacing = ~5 on recommended size  --  Should scale to bigger and smaller screens
   }
   
   textAlign(LEFT);
@@ -167,7 +171,7 @@ void home_screen()
   
   //Displaying the Date
   textAlign(RIGHT);
-  text(day, width/2 - (spacing*9), height * 0.2f);
+  text(day, width/2 - (spacing*9), height * 0.2f);    //Reminder spacing = ~5 on recommended size  --  Should scale to bigger and smaller screens
   textAlign(CENTER);
   text("/", width/2 - (spacing*7), height * 0.2f);
   textAlign(CENTER);
@@ -274,14 +278,38 @@ void ac()
   
   
   
-  //Variables used to display whether the windows are defrosting or not
-  int front = 0;
-  int rear = 0;
   
-  //Create two more buttons for defrosting front and rear windshield
+  //Create two more buttons for defrosting front and rear windshield -- For on click actions see mouseClicked()
   fill(0);
-  rect( (width/6), (height/10), (width/6), (2 * height/10) );
-  rect( (4 * width/6), (height/10), (width/6), (2 * height/10) );
+  rect( (2*spacing), (height/10), (width/6), (2 * height/10) );                 //Reminder: spacing = ~5px on recommended size  --  Should scale to bigger and smaller screens
+  rect( (5 * width/6) - (2*spacing), (height/10), (width/6), (2 * height/10) );
+  
+  
+  
+  //Display the current status of the front and rear windshield (defrosting or not)
+  fill(255);
+  fontSize = ( (height * width)/13333.33 );
+  textFont(f, fontSize);  //sets font size of 'PFont f'
+  textAlign(CENTER);
+  
+  if(front == 0)
+  {
+    text("Front Windshield Defrost: OFF", width/2, height/6);
+  }
+  else if(front == 1)
+  {
+    text("Front Windshield Defrost: ON", width/2, height/6);
+  }
+  
+  if(rear == 0)
+  {
+     text("Rear Windshield Defrost: OFF", width/2, height/4);
+  }
+  else if(rear == 1)
+  {
+    text("Rear Windshield Defrost: ON", width/2, height/6);
+  }
+  
   
   
 }
@@ -425,7 +453,8 @@ void mouseClicked()  //This function is used in the ac() function to alter varia
        {
          println("Minimum temperature reached");
        }
-     }
+       
+     }//end of min temp if
      
      if( (mouseX  < 5*width/6) && (mouseX > 4*width/6) && (mouseY < 6*height/8) && (mouseY > 3*height/8) )
      {
@@ -438,7 +467,37 @@ void mouseClicked()  //This function is used in the ac() function to alter varia
          println("Maximum temperature reached");
        }
        
+     }//End of max temp if
+     
+     
+     
+     //If statement to turn on/off the windshield defroster
+     if( (mouseX > 0) && (mouseX < width/6) && (mouseY > height/10) && (mouseY < 2*height/10) )  //Front defroster
+     {
+       if(front == 0)    //If off - turn on
+       {
+         front = 1;  
+       }
+       else      //otherwise (so if on) - turn off
+       {
+         front = 0;
+       }
+       
      }
+     
+     //if( (mouseX > 5*width/6   )  //Rear defroster
+     {
+       if(rear == 0)    //If off - turn on
+       {
+         rear = 1;  
+       }
+       else      //otherwise (so if on) - turn off
+       {
+         rear = 0;
+       }
+     }
+     
+     
      
   }//end of if statement to check for screen 1
    
