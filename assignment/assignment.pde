@@ -11,7 +11,8 @@ void setup()
 {
   size(800, 600);    //I'd suggest a wider screen as it looks better -> size(800,600)
   background(50);    //'50' (gray) looks better than just black
-
+  
+  
 }
 
 //Global Variables
@@ -19,7 +20,9 @@ void setup()
 int spacing = ( (height * width)/1920 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
 //int spacing = ( (height * width)/96000 ); 
 
-float randlvl = random(2, 4);       //Used to give a random level to the fuel meter, because no one ever has 100% fuel always
+float randlvl = random(1, 4);       //Used to give a random level to the fuel meter, because no one ever has 100% fuel always
+float tyreP = random(165, 200);      //Used to assign random value for tyre pressure
+int tyrePi = int(tyreP);            //Converted to int to display in a text() statement
 
 int timeH = hour();      //Hour  --  Global variables used in home_screen() and clock()
 int timeM = minute();    //Minute
@@ -33,12 +36,15 @@ int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of 
 
 int speed = 0; //Speed in km/h  --  Read in from file
 
-int screen = 0; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=clock()
+int screen = 2; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=clock()
 
 //Variables used to display whether the windows are defrosting or not
 int front = 0;
 int rear = 0;
 
+int totalkm = 5000;      //Total KM travelled by the car          -- system()
+int service = 30000;      //Next service in this many kilometers  -- system()
+int enginetemp = 0;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
 
 
 //Function for screen zero
@@ -69,7 +75,6 @@ void home_screen()
   text("Clock", width * 0.825f, height * 0.975f);
   
   
-  fill(0); //Revert fill to black for later shapes
   
   
   
@@ -79,6 +84,12 @@ void home_screen()
   rect( (width/9), (height/10), (width/9), (height - (height/4) ) );
   //Now the secong gauge (Electricity)
   rect( (width - (width/9 * 2) ), (height/10), width/9 , (height - (height/4) ) );
+  
+  //Labelling the gauges
+  text("Fuel", (3*width/18), height/10 - 10 );
+  text("Elec", (15*width/18), height/10 - 10 );
+  fill(0); //Revert back to black for later shapes
+  
   
   //Filling the gauges --  [(255, 255, 0) -> (255, 0, 0)] [yellow -> Red] 
   color c1, c2, c;
@@ -331,8 +342,8 @@ void ac()
 //Function for screen two  --  System analysis
 void system()
 {
-    stroke(255, 69, 0);
-   background(50);
+   stroke(255, 69, 0);  //orange
+   background(50);  //gray
    fill(0);
    
    //Button at bottom to return to the home screen
@@ -348,6 +359,30 @@ void system()
   //Center and print the word
   textAlign(CENTER);
   text("Home", width/2, height * 0.97f);
+  
+  
+  //Center line vertically down the screen
+  line( width/2, height/4, width/2, 3*height/4 );
+  
+  
+  //Engine temperature    50 - 130  --  90 avg
+  //enginetemp
+  
+  
+  //Tyre pressure randomly generated between 165-200kPa
+  text("Tyre Pressure:", width/5, 3*height/5);
+  text(tyrePi, 2*width/5, 3*height/5);
+  
+  
+  //Current km
+  text("Current KM: ", 3.5*width/5, 2*height/5);
+  text(totalkm, 4.5*width/5, 2*height/5);
+  
+  
+  //Next service at
+  text("Next service: ", 3.5*width/5, 3*height/5);
+  text(service, 4.5*width/5, 3*height/5);
+  
 }
    
    
