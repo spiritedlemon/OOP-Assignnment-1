@@ -22,8 +22,8 @@ int day = day();                 //Global variables used in home_screen() and cl
 int month = month();
 int year = year();
 
-int tempEX= -10;    //Changes the color of the font based on temperature --  range of '-10' to '40' --  Read in from file
-int tempINT= 0;     //Temperature used in ac() and system() -- Temperature of inside the car
+int tempEX = 0;    //Changes the color of the font based on temperature --  range of '-10' to '40' --  Read in from file
+int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of inside the car  --  range of '16' to '28'
 
 int spacing = 5; //( (height * width)/96000 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
 
@@ -250,28 +250,40 @@ void ac()
   
   
   
-  //Now create a display in middle of screen for the temperature
+  //Now create a display in middle of screen for the temperature  --  See mouseClicked() for the code to change the 'tempINT' variable using the arrows
   fill(0);
   rect( (2 * width/6), (3 * height/8), (2 * width/6), (3* height/8) );
   
+  //Arrows to change the temp when clicked  --  first draw the boxes
   rect( (width/6), (3* height/8), (width/6), (3*height/8) );
   rect( (4 * width/6), (3* height/8), (width/6), (3*height/8) );
   
-  //Print the temperature into the box in the middle of the screen
+  //Now draw the arrows 
+  fill(255, 0, 0);
+  triangle( (8.5*width/12), (5.75*height/8), (8.5*width/12), (5*height/12), (9.5*width/12), (4.5*height/8) );
+  fill(0, 100, 255);
+  triangle( (3.5*width/12), (5.75*height/8), (3.5*width/12), (5*height/12), (2.5*width/12), (4.5*height/8) );
+  
+  
+  //Print the temperature into the box in the middle of the screen  
   fontSize = ( (height * width)/3000 );
   textFont(f, fontSize);  //sets font size of 'PFont f'
-  fill(255);
   textAlign(CENTER);
+  fill(255);
   text(tempINT, (width/2), (5.25f*height/8) );
   
   
   
-  
+  //Variables used to display whether the windows are defrosting or not
+  int front = 0;
+  int rear = 0;
   
   //Create two more buttons for defrosting front and rear windshield
   fill(0);
   rect( (width/6), (height/10), (width/6), (2 * height/10) );
   rect( (4 * width/6), (height/10), (width/6), (2 * height/10) );
+  
+  
 }
 
 
@@ -399,8 +411,39 @@ void mousePressed()    //This function is used to navigate through all the diffe
 
 void mouseClicked()  //This function is used in the ac() function to alter variables using the mouse
 {
+  if(screen == 1);  //So this fnc is only used in the ac() function
+  {
+    
+     if( (mouseX < 2*width/6) && (mouseX > width/6) && (mouseY < 6*height/8) && (mouseY > 3*height/8) )
+     {
+       
+       if(tempINT > 16)    //if temp is 16 it will print "min temp rreached"
+       {
+         tempINT--;
+       }
+       else
+       {
+         println("Minimum temperature reached");
+       }
+     }
+     
+     if( (mouseX  < 5*width/6) && (mouseX > 4*width/6) && (mouseY < 6*height/8) && (mouseY > 3*height/8) )
+     {
+       if(tempINT < 28)    //if temp is 28 it will print "max temp reached"
+       {
+         tempINT++;
+       }
+       else
+       {
+         println("Maximum temperature reached");
+       }
+       
+     }
+     
+  }//end of if statement to check for screen 1
+   
   
-}
+}//end of mouseClicked() fnc
 
 
 //Function to change screens with keys
