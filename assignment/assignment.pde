@@ -29,7 +29,7 @@ int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of 
 
 int speed = 0; //Speed in km/h  --  Read in from file
 
-int screen = 1; //Menu selection -- 0=home, 1=ac(), 2=system(), 3=clock()
+int screen = 0; //Menu selection -- 0=home, 1=ac(), 2=system(), 3=clock()
 
 //Variables used to display whether the windows are defrosting or not
 int front = 0;
@@ -285,12 +285,18 @@ void ac()
   rect( (5 * width/6) - (2*spacing), (height/10), (width/6), (2 * height/10) );
   
   
-  
-  //Display the current status of the front and rear windshield (defrosting or not)
+  //Label the two buttons created above ^^
   fill(255);
   fontSize = ( (height * width)/13333.33 );
   textFont(f, fontSize);  //sets font size of 'PFont f'
-  textAlign(CENTER);
+   textAlign(CENTER);
+  
+  text("Front",  width/12, 2*height/10);
+  text("Rear",  11*width/12, 2*height/10);
+  
+  
+  
+  //Display the current status of the front and rear windshield (defrosting or not)  -- For on click actions see mouseClicked()
   
   if(front == 0)
   {
@@ -307,7 +313,7 @@ void ac()
   }
   else if(rear == 1)
   {
-    text("Rear Windshield Defrost: ON", width/2, height/6);
+    text("Rear Windshield Defrost: ON", width/2, height/4);
   }
   
   
@@ -472,7 +478,7 @@ void mouseClicked()  //This function is used in the ac() function to alter varia
      
      
      //If statement to turn on/off the windshield defroster
-     if( (mouseX > 0) && (mouseX < width/6) && (mouseY > height/10) && (mouseY < 2*height/10) )  //Front defroster
+     if( ( mouseX > (spacing*2) ) && (mouseX < width/6 + (2*spacing)) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Front defroster
      {
        if(front == 0)    //If off - turn on
        {
@@ -485,7 +491,7 @@ void mouseClicked()  //This function is used in the ac() function to alter varia
        
      }
      
-     //if( (mouseX > 5*width/6   )  //Rear defroster
+     if( ( mouseX > (5*width/6 - (2*spacing) ) ) && (mouseX < width) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Rear defroster
      {
        if(rear == 0)    //If off - turn on
        {
