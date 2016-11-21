@@ -41,7 +41,7 @@ int rear = 0;
 
 int totalkm = 5000;      //Total KM travelled by the car          -- system()
 int service = 30000;      //Next service in this many kilometers  -- system()
-int enginetemp = 0;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
+int enginetemp = 7;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
 
 
 //Function for screen zero
@@ -366,8 +366,17 @@ void system()
   line( width/2, height/4, width/2, 3*height/4 );
   
   
+  //Print the range of temperatures along the gauge
+  fontSize = ( (height * width)/15000 );
+  textFont(f, fontSize);
   
-  //Engine Temperature gauge
+  textAlign(CENTER);
+  text("50'C", width/10, height/10 - spacing);  //Reminder: spacing is a global variable that scales based onheight and width and == ~5 on (800, 600)
+  text("90'C", width/2, height/10 - spacing);
+  text("130'C", 9*width/10, height/10 - spacing);
+  
+  
+  //Engine Temperature gauge    Engine temperature:    50 - 130  --  90 avg
   fill(0);
   rect( (width/10), height/10, (8 * width/10), height/10);
   
@@ -396,13 +405,17 @@ void system()
    }//end for loop
   
   
+  //Black rectangle to allow the engine gauge to slowly climb towards the center (90'C)
+  //rect(
   
   
+  fontSize = ( (height * width)/13333.33 );
+  textFont(f, fontSize);
   fill(255);
   
-  //Engine temperature    50 - 130  --  90 avg
-  text("Engine Heat: ", width/5, 2*height/5);
-  text(enginetemp, 2*width/5, 2*height/5);
+  //Displays temp selected in ac()
+  text("Car Heat: ", width/5, 2*height/5);
+  text(tempINT, 2*width/5, 2*height/5);
   
   
   //Tyre pressure randomly generated between 165-200kPa
