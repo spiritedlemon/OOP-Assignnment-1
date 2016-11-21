@@ -1,6 +1,7 @@
-//OOP-Assignment     --     DT 228/2     --     Simon O'Leary ( C15413218 )
+//OOP-Assignment     --     DT - 228/2     --     Simon O'Leary ( C15413218 )
 
-//Electronic dashboard for a car which displays speed, fuel level, allows user to change the air conditioning and more
+//Electronic dashboard for a car which displays speed, sate, time, etc and allows user to change the air conditioning, 
+//see some details about the car and change a number of settings
 
 //https://github.com/spiritedlemon/OOP-Assignnment-1
 
@@ -10,12 +11,15 @@ void setup()
 {
   size(800, 600);    //I'd suggest a wider screen as it looks better -> size(800,600)
   background(50);    //'50' (gray) looks better than just black
-  
+
 }
 
 //Global Variables
 
-int spacing = 5; //( (height * width)/96000 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
+int spacing = ( (height * width)/1920 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
+//int spacing = ( (height * width)/96000 ); 
+
+float randlvl = random(2, 4);       //Used to give a random level to the fuel meter, because no one ever has 100% fuel always
 
 int timeH = hour();      //Hour  --  Global variables used in home_screen() and clock()
 int timeM = minute();    //Minute
@@ -29,7 +33,7 @@ int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of 
 
 int speed = 0; //Speed in km/h  --  Read in from file
 
-int screen = 0; //Menu selection -- 0=home, 1=ac(), 2=system(), 3=clock()
+int screen = 0; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=clock()
 
 //Variables used to display whether the windows are defrosting or not
 int front = 0;
@@ -40,6 +44,7 @@ int rear = 0;
 //Function for screen zero
 void home_screen()
 {
+  
   background(50);
   stroke(0, 255, 255);  //cyan
   fill(0);
@@ -117,16 +122,14 @@ void home_screen()
      line(x, i, x+x2, i);
    }
   
+  stroke(0);
+  
+  //Adding a random element to the fuel gauge:  --  randlvl is called initialised globally to prevent changing 60x a second
+  rect( (width/9), (height/10), (width/9), (height - (height/randlvl) ) );
+  
+  
+  
   stroke(0, 255, 255);
-  
-  /*
-  'Tool Tips' for two gauges  --  Scrapped temporarily
-  Fuel first:
-  if( (mouseX > width/9) && (mouseX < 2*width/9) && (mouseY < height * 0.85f) && (mouseY > height * 0.1f) ) {}
-  */
-  
-  
-  
   
   
   //'Center Line' - Divides up the home screen
@@ -201,6 +204,7 @@ void home_screen()
   }
   else
   {
+    fill(255);
     text("--", width/2 - (spacing), height * 0.3f);
   }
   
@@ -441,74 +445,97 @@ void mousePressed()    //This function is used to navigate through all the diffe
         }
     }
   
-}
+}//End of mousePressed()
+
+
 
 void mouseClicked()  //This function is used in the ac() function to alter variables using the mouse
 {
-  if(screen == 1);  //So this fnc is only used in the ac() function
-  {
     
-     if( (mouseX < 2*width/6) && (mouseX > width/6) && (mouseY < 6*height/8) && (mouseY > 3*height/8) )
-     {
+    if( (mouseX < 2*width/6) && (mouseX > width/6) && (mouseY < 6*height/8) && (mouseY > 3*height/8) )
+    {
+      if(screen == 1)
+      {
+      
+        if(tempINT > 16)    //if temp is 16 it will print "min temp rreached"
+        {
+          tempINT--;
+        }
+        else
+        {
+          println("Minimum temperature reached");
+        }
+        
+      }
+      
+    }//end of min temp if
+    
+    if( (mouseX  < 5*width/6) && (mouseX > 4*width/6) && (mouseY < 6*height/8) && (mouseY > 3*height/8) )
+    {
+      
+      if(screen == 1)
+      {
+        
+        if(tempINT < 28)    //if temp is 28 it will print "max temp reached"
+        {
+          tempINT++;
+        }
+        else
+        {
+          println("Maximum temperature reached");
+        }
+        
+      }
+      
+    }//end of max temp if
        
-       if(tempINT > 16)    //if temp is 16 it will print "min temp rreached"
-       {
-         tempINT--;
-       }
-       else
-       {
-         println("Minimum temperature reached");
-       }
-       
-     }//end of min temp if
-     
-     if( (mouseX  < 5*width/6) && (mouseX > 4*width/6) && (mouseY < 6*height/8) && (mouseY > 3*height/8) )
-     {
-       if(tempINT < 28)    //if temp is 28 it will print "max temp reached"
-       {
-         tempINT++;
-       }
-       else
-       {
-         println("Maximum temperature reached");
-       }
-       
-     }//End of max temp if
      
      
      
-     //If statement to turn on/off the windshield defroster
-     if( ( mouseX > (spacing*2) ) && (mouseX < width/6 + (2*spacing)) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Front defroster
-     {
-       if(front == 0)    //If off - turn on
-       {
-         front = 1;  
-       }
-       else      //otherwise (so if on) - turn off
-       {
-         front = 0;
-       }
-       
-     }
-     
-     if( ( mouseX > (5*width/6 - (2*spacing) ) ) && (mouseX < width) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Rear defroster
-     {
-       if(rear == 0)    //If off - turn on
-       {
-         rear = 1;  
-       }
-       else      //otherwise (so if on) - turn off
-       {
-         rear = 0;
-       }
-     }
-     
-     
-     
-  }//end of if statement to check for screen 1
+    //If statement to turn on/off the windshield defroster
+    if( ( mouseX > (spacing*2) ) && (mouseX < width/6 + (2*spacing)) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Front defroster
+    {
+      
+      if(screen == 1)
+      {
+        
+        if(front == 0)    //If off - turn on
+        {
+          front = 1;  
+        }
+        else      //otherwise (so if on) - turn off
+        {
+          front = 0;
+        }
+        
+      }
+      
+    }
+    
+    
+    if( ( mouseX > (5*width/6 - (2*spacing) ) ) && (mouseX < width) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Rear defroster
+    {
+      
+      if(screen == 1)
+      {
+        
+        if(rear == 0)    //If off - turn on
+        {
+          rear = 1;  
+        }
+        else      //otherwise (so if on) - turn off
+        {
+          rear = 0;
+        }
+        
+      }
+      
+    }
    
   
 }//end of mouseClicked() fnc
+
+
 
 
 //Function to change screens with keys
