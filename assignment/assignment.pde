@@ -24,9 +24,6 @@ float randlvl = random(1, 4);       //Used to give a random level to the fuel me
 float tyreP = random(165, 200);      //Used to assign random value for tyre pressure
 int tyrePi = int(tyreP);            //Converted to int to display in a text() statement
 
-int timeH = hour();      //Hour  --  Global variables used in home_screen() and clock()
-int timeM = minute();    //Minute
-
 int day = day();         //Global variables used in home_screen() and clock()
 int month = month();
 int year = year();
@@ -157,6 +154,10 @@ void home_screen()
   fill(255);
   
   //For the time
+  
+  int timeH = hour();      //Hour  
+  int timeM = minute();    //Minute
+  
   textAlign(RIGHT);
   if(timeH > 9)  //If time is < 10 it only displays one digit so this if statement should solve it
   {
@@ -365,8 +366,43 @@ void system()
   line( width/2, height/4, width/2, 3*height/4 );
   
   
+  
+  //Engine Temperature gauge
+  fill(0);
+  rect( (width/10), height/10, (8 * width/10), height/10);
+  
+  //Similar to the two gauges from above:
+  
+  //Filling the gauge --  [(0, 0, 255) -> (255, 0, 0)] [Blue -> Red] 
+  color c1, c2, c;
+  int i, x, y, x2, y2;
+  float amt;
+  
+  c1 = color(0, 0, 255);    //Blue
+  c2 = color(255, 0, 0);    //red
+  
+  x = width/10;
+  y = height/10; 
+  x2 = (8*width/10); 
+  y2 = height/10;
+  
+  //for loop to change the gradient in relation to the x-axis
+   for (i = x; i <= x+x2; i++) 
+   {
+      amt = map(i, x, x+x2, 0, .7);    
+      c = lerpColor(c1, c2, amt);
+      stroke(c);
+      line(i, y, i, y+y2);
+   }//end for loop
+  
+  
+  
+  
+  fill(255);
+  
   //Engine temperature    50 - 130  --  90 avg
-  //enginetemp
+  text("Engine Heat: ", width/5, 2*height/5);
+  text(enginetemp, 2*width/5, 2*height/5);
   
   
   //Tyre pressure randomly generated between 165-200kPa
