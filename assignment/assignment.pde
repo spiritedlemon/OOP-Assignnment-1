@@ -28,7 +28,7 @@ int spacing = 5; //( (height * width)/96000 );    //This is used to space out di
 
 int speed = 0; //Speed in km/h  
 
-int screen = 0; //Menu selection -- 0=home, 1=ac(), 2=system(), 3=clock()
+int screen = 1; //Menu selection -- 0=home, 1=ac(), 2=system(), 3=clock()
 
 
 
@@ -41,7 +41,7 @@ void home_screen()
   
   
   //Drawing boxes at the base of the screen to navigate to other menus
-  rect( 0, (height - (height/10) ), ( width - 1 ), height );
+  rect( 0, (height - (height/10) ), ( width - 1 ), height/10 );
   line( ( width/3), (height - (height/10) ), ( width/3), height);
   line( ( width - (width/3) ), (height - (height/10) ), ( width - (width/3) ), height);
   
@@ -229,12 +229,32 @@ void home_screen()
 //Function for screen one -- Air conditioning
 void ac()
 {
-  
    stroke(65, 105, 255);
-   background(0);
+   background(50);
+   fill(0);
+   
+   
+   rect( 0, (height - (height/10) ), ( width - 1 ), (height/10) );
+   
+  PFont f;
+  float fontSize = ( (height * width)/13333.33 );   //Font size scales with chosen display dimensions
+  f = createFont("Arial", 48, true); // true -> anti-aliasing on
+  textFont(f, fontSize);  //sets font size of 'PFont f'
+  
+  fill(255);
+  
+  textAlign(CENTER);
+  text("Home", width/2, height * 0.97f);
+  
+  fill(0);
+  rect( (2 * width/6), (3 * height/8), (2 * width/6), (3* height/8) );
+  
+  rect( (width/6), (3* height/8), (width/6), (3*height/8) );
+  rect( (4 * width/6), (3* height/8), (width/6), (3*height/8) );
 }
 
-//Function for screen two
+
+//Function for screen two 
 void system()
 {
   
@@ -278,18 +298,42 @@ void mousePressed()    //When either left or right mouse button is clicked this 
   
    if( (mouseX < (width/3) ) && (mouseY > (height * 0.9f) ) )
     {
-       println("In ac() now");     //Alerting user which function currently is in use  --  Mainly for eror checking
-      screen = 1;
+        if(screen == 0)
+        {
+          println("In ac() now");     //Alerting user which function currently is in use  --  Mainly for eror checking
+          screen = 1;
+        }
+        else
+        {
+          println("In home_screen() now");
+          screen = 0;
+        }
     }
     else if( (mouseX > (width/3) ) && (mouseX < (2 * width/3) ) && (mouseY > (height * 0.9f) ) )
     {
-      println("In system() now");
-      screen = 2;
+        if(screen == 0)
+        {
+          println("In system() now");
+          screen = 2;
+        }
+        else
+        {
+          println("In home_screen() now");
+          screen = 0;
+        }
     }
     else if( (mouseX > (2 * width/3) ) && (mouseY > (height * 0.9f) ) )
     {
-      println("In clock() now");
-      screen = 3;
+        if(screen == 0)
+        {
+          println("In clock() now");
+          screen = 3;
+        }
+        else
+        {
+          println("In home_screen() now");
+          screen = 0;
+        }
     }
   
 }
