@@ -22,11 +22,12 @@ int day = day();                 //Global variables used in home_screen() and cl
 int month = month();
 int year = year();
 
-int tempEX= -10;    //Changes the color of the font based on temperature -- Can be changed in home_screen or cloc  --  range of '-10' to '40'
+int tempEX= -10;    //Changes the color of the font based on temperature --  range of '-10' to '40' --  Read in from file
+int tempINT= 0;     //Temperature used in ac() and system() -- Temperature of inside the car
 
 int spacing = 5; //( (height * width)/96000 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
 
-int speed = 0; //Speed in km/h  
+int speed = 0; //Speed in km/h  --  Read in from file
 
 int screen = 1; //Menu selection -- 0=home, 1=ac(), 2=system(), 3=clock()
 
@@ -35,7 +36,7 @@ int screen = 1; //Menu selection -- 0=home, 1=ac(), 2=system(), 3=clock()
 //Function for screen zero
 void home_screen()
 {
-  
+  background(50);
   stroke(0, 255, 255);  //cyan
   fill(0);
   
@@ -233,38 +234,96 @@ void ac()
    background(50);
    fill(0);
    
-   
+   //Button at bottom to return to the home screen
    rect( 0, (height - (height/10) ), ( width - 1 ), (height/10) );
    
+   //Setting font size and style for the home button
   PFont f;
   float fontSize = ( (height * width)/13333.33 );   //Font size scales with chosen display dimensions
   f = createFont("Arial", 48, true); // true -> anti-aliasing on
   textFont(f, fontSize);  //sets font size of 'PFont f'
+  fill(255);  //Color of word (white)
   
-  fill(255);
-  
+  //Center and print the word
   textAlign(CENTER);
   text("Home", width/2, height * 0.97f);
   
+  
+  
+  //Now create a display in middle of screen for the temperature
   fill(0);
   rect( (2 * width/6), (3 * height/8), (2 * width/6), (3* height/8) );
   
   rect( (width/6), (3* height/8), (width/6), (3*height/8) );
   rect( (4 * width/6), (3* height/8), (width/6), (3*height/8) );
+  
+  //Print the temperature into the box in the middle of the screen
+  fontSize = ( (height * width)/3000 );
+  textFont(f, fontSize);  //sets font size of 'PFont f'
+  fill(255);
+  textAlign(CENTER);
+  text(tempINT, (width/2), (5.25f*height/8) );
+  
+  
+  
+  
+  
+  //Create two more buttons for defrosting front and rear windshield
+  fill(0);
+  rect( (width/6), (height/10), (width/6), (2 * height/10) );
+  rect( (4 * width/6), (height/10), (width/6), (2 * height/10) );
 }
 
 
-//Function for screen two 
+
+
+
+//Function for screen two  --  System analysis
 void system()
 {
+    stroke(255, 69, 0);
+   background(50);
+   fill(0);
+   
+   //Button at bottom to return to the home screen
+   rect( 0, (height - (height/10) ), ( width - 1 ), (height/10) );
+   
+   //Setting font size and style for the home button
+  PFont f;
+  float fontSize = ( (height * width)/13333.33 );   //Font size scales with chosen display dimensions
+  f = createFont("Arial", 48, true); // true -> anti-aliasing on
+  textFont(f, fontSize);  //sets font size of 'PFont f'
+  fill(255);  //Color of word (white)
   
+  //Center and print the word
+  textAlign(CENTER);
+  text("Home", width/2, height * 0.97f);
 }
+   
+   
+   
+   
 
-
-//Function for screen three
+//Function for screen three  --  Settings
 void clock()
 {
+    stroke(200, 0, 200);
+   background(50);
+   fill(0);
+   
+   //Button at bottom to return to the home screen
+   rect( 0, (height - (height/10) ), ( width - 1 ), (height/10) );
+   
+   //Setting font size and style for the home button
+  PFont f;
+  float fontSize = ( (height * width)/13333.33 );   //Font size scales with chosen display dimensions
+  f = createFont("Arial", 48, true); // true -> anti-aliasing on
+  textFont(f, fontSize);  //sets font size of 'PFont f'
+  fill(255);  //Color of word (white)
   
+  //Center and print the word
+  textAlign(CENTER);
+  text("Home", width/2, height * 0.97f);
 }
 
 
@@ -293,7 +352,7 @@ void draw()
   
 }
 
-void mousePressed()    //When either left or right mouse button is clicked this function opens another function based on what was clicked
+void mousePressed()    //This function is used to navigate through all the different screens using the buttons at the bottom of the screen
 {
   
    if( (mouseX < (width/3) ) && (mouseY > (height * 0.9f) ) )
@@ -335,6 +394,11 @@ void mousePressed()    //When either left or right mouse button is clicked this 
           screen = 0;
         }
     }
+  
+}
+
+void mouseClicked()  //This function is used in the ac() function to alter variables using the mouse
+{
   
 }
 
