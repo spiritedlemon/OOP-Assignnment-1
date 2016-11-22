@@ -15,6 +15,7 @@
   Label system() things:  Gauge, km tag and kPa
   Elec. meter to scale up
   Read in 2/3 things (Class)
+  Fix system() and have them light up
   
   Fill out the README.txt
 
@@ -50,7 +51,7 @@ int rear = 0;
 int totalkm = 5000;      //Total KM travelled by the car          -- system()
 float servicef = random(3000, 20000);      //Next service in this many kilometers  -- system()  -- Randomized for fun :)
 int service = int(servicef);               //Converts to an int
-int enginetemp = 50;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
+int enginetemp = 0;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
 
 
 
@@ -528,6 +529,9 @@ void date()
   rect(width*.7f, 5*height/10, width*.2f, height/10);
   
   
+  //rect(width/10, 7*height/10, 4.5f*width/10, 2*height/10);
+  
+  
   //
 }
 
@@ -562,7 +566,8 @@ void draw()
   
 }
 
-void mousePressed()    //This function is used to navigate through all the different screens using the buttons at the bottom of the screen
+void mousePressed()    //The first half of this function is used to navigate through all the different screens using the buttons at the bottom of the screen
+                       //The second half refers to the date()(settings) function/tab and allows the user to change the date on click
 {
   
    if( (mouseX < (width/3) ) && (mouseY > (height * 0.9f) ) )
