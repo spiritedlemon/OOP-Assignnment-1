@@ -11,7 +11,7 @@
 
 /*
   Features to add:
-  Finish date()
+  Finish date()  --  Set air con to default and convert to mph!
   Label system() things:  Gauge, km tag and kPa
   Elec. meter to scale up
   Read in 2/3 things (Class)
@@ -42,7 +42,7 @@ int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of 
 
 int speed = 0; //Speed in km/h  --  Read in from file
 
-int screen = 3; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=date()
+int screen = 0; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=date()
 
 //Variables used to display whether the windows are defrosting or not
 int front = 0;
@@ -52,6 +52,7 @@ int totalkm = 5000;      //Total KM travelled by the car          -- system()
 float servicef = random(3000, 20000);      //Next service in this many kilometers  -- system()  -- Randomized for fun :)
 int service = int(servicef);               //Converts to an int
 int enginetemp = 0;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
+float eleclvl = 25;    //Starts at 25 and increments every second  --  home_screen()
 
 
 
@@ -136,14 +137,21 @@ void home_screen()
      line(x, i, x+x2, i);
    }
    
+   stroke(0);
+  
+  //Adding a random element to the fuel gauge:  --  randlvl is called initialised globally to prevent changing 60x a second
+  rect( (width/9), (height/10), (width/9), (height - (height/randlvl) ) );
+  
+  
+  
   
   //Gauge two
   c1 = color(255, 255, 0);  //yellow
   c2 = color(192, 192, 192); //silver
   
-  x = (width - (width/9 * 2));
+  x = (width - (width/9 * 2));  //Starts 7/9ths in
   y = height/10; 
-  x2 = width/9; 
+  x2 = width/9;                 //Ends one nineth later
   y2 = ( height - height/4 );
   
   //Same for loop again with different location and colors above
@@ -155,10 +163,23 @@ void home_screen()
      line(x, i, x+x2, i);
    }
   
+   
+   //The elec. bar/gauge fills slowly over time
   stroke(0);
   
-  //Adding a random element to the fuel gauge:  --  randlvl is called initialised globally to prevent changing 60x a second
-  rect( (width/9), (height/10), (width/9), (height - (height/randlvl) ) );
+  //increments eleclvl every second
+  if(frameCount %60 == 0)
+  {
+    if(eleclvl < 100)
+    {
+      eleclvl++;
+    } 
+  }
+  
+  
+  float eleclvlf =  map(eleclvl, 25, 100, 0, 0.5);     //Used to vary the size of the rectangle covering the elec meter to display that eleclvl is increasing
+  
+  rect((width - (width/9 * 2)), height*0.1f, width/9, height*(0.5f-eleclvlf));
   
   
   
@@ -529,7 +550,9 @@ void date()
   rect(width*.7f, 5*height/10, width*.2f, height/10);
   
   
-  //rect(width/10, 7*height/10, 4.5f*width/10, 2*height/10);
+  //These are the two boxes at the bottom of the settings screen  --  These change the speed to mph and
+  rect(width/10, 6.5f*height/10, 3.5f*width/10, 2*height/10);
+  rect(5.5f*width/10, 6.5f*height/10, 3.5f*width/10, 2*height/10);
   
   
   //
