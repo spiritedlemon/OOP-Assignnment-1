@@ -11,9 +11,7 @@
 
 /*
   Features to add:
-  Finish date()  --  Set air con to default and convert to mph!
-  Label system() things:  Gauge, km tag and kPa
-  Elec. meter to scale up
+  Finish date()  --  mousePressed() stuff :(
   Read in 2/3 things (Class)
   Fix system() and have them light up
   
@@ -42,7 +40,7 @@ int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of 
 
 int speed = 0; //Speed in km/h  --  Read in from file
 
-int screen = 3; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=date()
+int screen = 2; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=date()
 
 //Variables used to display whether the windows are defrosting or not
 int front = 0;
@@ -418,7 +416,7 @@ void system()
   
   textAlign(CENTER);
   text("50'C", width/10, height/10 - spacing);  //Reminder: spacing is a global variable that scales based onheight and width and == ~5 on (800, 600)
-  text("90'C", width/2, height/10 - spacing);
+  text("Engine Temperature", width/2, height/10 - 2*spacing);
   text("130'C", 9*width/10, height/10 - spacing);
   
   
@@ -486,13 +484,15 @@ void system()
   fill(255);
   
   //Displays temp selected in ac()
-  text("Car Heat: ", width/5, 2*height/5);
-  text(tempINT, 2*width/5, 2*height/5);
+  text("Car Interior: ", width/5, 2*height/5);
+  text(tempINT, width*0.375, height*0.4);
+  text("'C", width*.425, height*0.4);
   
   
   //Tyre pressure randomly generated between 165-200kPa
-  text("Tyre Pressure:", width/5, 3*height/5);
-  text(tyrePi, 2*width/5, 3*height/5);
+  text("Tyre Pressure:", width*.1675, 3*height/5);
+  text(tyrePi, width*.37, height*0.6);
+  text("kPa", width*.455, height*0.6);
   
   
   //Current km
