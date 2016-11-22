@@ -5,17 +5,25 @@
 
 //https://github.com/spiritedlemon/OOP-Assignnment-1
 
+//See the 'README.txt' for more details on this assignment!
 
 
-void setup()
-{
-  size(800, 600);    //I'd suggest a wider screen as it looks better -> size(800,600)
-  background(50);    //'50' (gray) looks better than just black
+
+/*
+  Features to add:
+  Finish date()
+  Label system() things:  Gauge, km tag and kPa
+  Elec. meter to scale up
+  Read in 2/3 things (Class)
   
-  
-}
+  Fill out the README.txt
 
-//Global Variables
+
+*/
+
+
+
+//***Global Variables***
 
 int spacing = ( (height * width)/1920 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
 //int spacing = ( (height * width)/96000 ); 
@@ -24,7 +32,7 @@ float randlvl = random(1, 4);       //Used to give a random level to the fuel me
 float tyreP = random(165, 200);      //Used to assign random value for tyre pressure
 int tyrePi = int(tyreP);            //Converted to int to display in a text() statement
 
-int day = day();         //Global variables used in home_screen() and clock()
+int day = day();         //Global variables used in home_screen() and date()
 int month = month();
 int year = year();
 
@@ -33,15 +41,31 @@ int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of 
 
 int speed = 0; //Speed in km/h  --  Read in from file
 
-int screen = 2; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=clock()
+int screen = 3; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=date()
 
 //Variables used to display whether the windows are defrosting or not
 int front = 0;
 int rear = 0;
 
 int totalkm = 5000;      //Total KM travelled by the car          -- system()
-int service = 30000;      //Next service in this many kilometers  -- system()
-int enginetemp = 0;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
+float servicef = random(3000, 20000);      //Next service in this many kilometers  -- system()  -- Randomized for fun :)
+int service = int(servicef);               //Converts to an int
+int enginetemp = 50;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
+
+
+
+void setup()
+{
+  size(800, 600);    //I'd suggest a wider screen as it looks better -> size(800,600)
+  background(50);    //'50' (gray) looks better than just black
+  
+  if(service <= 5000)
+  {
+    println("Service due in: ");
+    println(service);
+  }
+}
+
 
 
 //Function for screen zero
@@ -69,7 +93,7 @@ void home_screen()
   
   text("System", width * 0.5f, height * 0.975f);
   
-  text("Clock", width * 0.825f, height * 0.975f);
+  text("Settings", width * 0.825f, height * 0.975f);
   
   
   
@@ -410,7 +434,7 @@ void system()
   if(frameCount %60 == 0)
   {
     
-    if(enginetemp < 91)
+    if(enginetemp < 90)
     {
        enginetemp++;
     }
@@ -426,10 +450,11 @@ void system()
   else if(enginetemp >= 50 && enginetemp <= 90)    //Engine temp starts at 50'C and shouldnt go over 90'C
   {
     stroke(0);
-    float enginetempD = map(enginetemp, 50, 90, 0, 0.4);                                          //enginetempD scales with enginetemp and is mapped down to a range between 0 and .4
-    rect( (width*(0.1+enginetempD)), (height/10), (8*width*(0.1+enginetempD)) , (height/10) );    //this makes the engine temp. bar change in realtion to the engine temperature
+    float enginetemp1 = map(enginetemp, 50, 90, 0, 0.4);         //enginetemp1 scales with enginetemp and is mapped down to a range between 0 and .4
+    float enginetemp2 = map(enginetemp, 50, 90, 1, 0.5);         //This is used to adjust the maximum size of the engine heat gauge (range of 1 -> 0.5)
+    rect( (width*(0.1f+enginetemp1)), (height/10), (8*enginetemp2)*width/10 , (height/10) );    //this makes the engine temp. bar change in realtion to the engine temperature
   }
-  else      //In case engine is too hot
+  else      //In case engine is too hot      //(8*width*(0.1+enginetempD))
   {
     println("Engine overheat!!");
   }
@@ -463,8 +488,8 @@ void system()
    
    
 
-//Function for screen three  --  Settings
-void clock()
+//Function for screen three  --  date(Settings on home screen)
+void date()
 {
     stroke(200, 0, 200);
    background(50);
@@ -483,7 +508,33 @@ void clock()
   //Center and print the word
   textAlign(CENTER);
   text("Home", width/2, height * 0.97f);
+  
+  
+  //Draw the buttons to display and change the date
+  fill(0);
+  //These first three are for the 'day' field and the arrows which both raise and lower the variable when clicked
+  rect(width*.1f, height/10, width*.2f, height/10);
+  rect(width*.1f, 2*height/10, width*.2f, 3*height/10);
+  rect(width*.1f, 5*height/10, width*.2f, height/10);
+  
+  //These first three are for the 'month' field and the arrows which both raise and lower the variable when clicked
+  rect(width*.4f, height/10, width*.2f, height/10);
+  rect(width*.4f, 2*height/10, width*.2f, 3*height/10);
+  rect(width*.4f, 5*height/10, width*.2f, height/10);
+  
+  //These first three are for the 'year' field and the arrows which both raise and lower the variable when clicked
+  rect(width*.7f, height/10, width*.2f, height/10);
+  rect(width*.7f, 2*height/10, width*.2f, 3*height/10);
+  rect(width*.7f, 5*height/10, width*.2f, height/10);
+  
+  
+  //
 }
+
+
+
+
+
 
 
 void draw()
@@ -504,7 +555,7 @@ void draw()
       break;
       
     case 3:
-      clock();
+      date();
       break;
     
   }
@@ -544,7 +595,7 @@ void mousePressed()    //This function is used to navigate through all the diffe
     {
         if(screen == 0)
         {
-          println("In clock() now");
+          println("In date() now");
           screen = 3;
         }
         else
