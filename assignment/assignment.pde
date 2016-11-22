@@ -41,7 +41,7 @@ int rear = 0;
 
 int totalkm = 5000;      //Total KM travelled by the car          -- system()
 int service = 30000;      //Next service in this many kilometers  -- system()
-int enginetemp = 7;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
+int enginetemp = 0;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
 
 
 //Function for screen zero
@@ -405,9 +405,34 @@ void system()
    }//end for loop
   
   
-  //Black rectangle to allow the engine gauge to slowly climb towards the center (90'C)
-  //rect(
   
+  //increments engine temp every second
+  if(frameCount %60 == 0)
+  {
+    
+    if(enginetemp < 91)
+    {
+       enginetemp++;
+    }
+    
+  }
+  
+  
+  //Black rectangle to allow the engine gauge to slowly climb towards the center (90'C)
+  if(enginetemp < 50)                    //Only displays heat starting at 50'C
+  {
+    rect( (width/10), (height/10), (8*width/10), (height/10) );
+  }
+  else if(enginetemp >= 50 && enginetemp <= 90)    //Engine temp starts at 50'C and shouldnt go over 90'C
+  {
+    stroke(0);
+    float enginetempD = map(enginetemp, 50, 90, 0, 0.4);                                          //enginetempD scales with enginetemp and is mapped down to a range between 0 and .4
+    rect( (width*(0.1+enginetempD)), (height/10), (8*width*(0.1+enginetempD)) , (height/10) );    //this makes the engine temp. bar change in realtion to the engine temperature
+  }
+  else      //In case engine is too hot
+  {
+    println("Engine overheat!!");
+  }
   
   fontSize = ( (height * width)/13333.33 );
   textFont(f, fontSize);
