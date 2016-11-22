@@ -13,7 +13,7 @@
   Features to add:
   Finish date()  --  mousePressed() stuff :(
   Read in 2/3 things (Class)
-  Fix system() and have them light up
+  Clean up text on home screen :(
   
   Fill out the README.txt
 
@@ -40,7 +40,7 @@ int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of 
 
 int speed = 0; //Speed in km/h  --  Read in from file
 
-int screen = 2; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=date()
+int screen = 0; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=date()
 
 //Variables used to display whether the windows are defrosting or not
 int front = 0;
@@ -339,41 +339,58 @@ void ac()
   
   
   
-  //Create two more buttons for defrosting front and rear windshield -- For on click actions see mouseClicked()
-  fill(0);
-  rect( (2*spacing), (height/10), (width/6), (2 * height/10) );                 //Reminder: spacing = ~5px on recommended size  --  Should scale to bigger and smaller screens
-  rect( (5 * width/6) - (2*spacing), (height/10), (width/6), (2 * height/10) );
+  //For on-click actions on the ac screen, see mouseClicked()
+  
   
   
   //Label the two buttons created above ^^
   fill(255);
   fontSize = ( (height * width)/13333.33 );
   textFont(f, fontSize);  //sets font size of 'PFont f'
-   textAlign(CENTER);
-  
-  text("Front",  width/12, 2*height/10);
-  text("Rear",  11*width/12, 2*height/10);
+  textAlign(CENTER);
   
   
   
-  //Display the current status of the front and rear windshield (defrosting or not)  -- For on click actions see mouseClicked()
+  //Draw a box (labelled Front/Rear) which toggles it's own color and the text displayed on screen regarding the status of the defroster
   
   if(front == 0)
   {
-    text("Front Windshield Defrost: OFF", width/2, height/6);
+    fill(0);
+    rect( (2*spacing), (height/10), (width/6), (2 * height/10) ); 
+    
+    fill(255);
+    text("Front",  width*0.095, height*.215);
+    text("Front Windshield Defrost: OFF", width*0.5, height*.165);
   }
   else if(front == 1)
   {
-    text("Front Windshield Defrost: ON", width/2, height/6);
+    fill(255, 69, 0);
+    rect( (2*spacing), (height/10), (width/6), (2 * height/10) ); 
+    
+    fill(0);
+    text("Front",  width*0.095, height*.215);
+    fill(255);
+    text("Front Windshield Defrost: ON", width*0.5, height*.165);
   }
   
   if(rear == 0)
   {
-     text("Rear Windshield Defrost: OFF", width/2, height/4);
+    fill(0);
+    rect( (5 * width/6) - (2*spacing), (height/10), (width/6), (2 * height/10) );
+    
+    fill(255);
+    text("Rear",  width*0.905, height*.215);
+    text("Rear Windshield Defrost: OFF", width*.5, height*.25);
   }
   else if(rear == 1)
   {
-    text("Rear Windshield Defrost: ON", width/2, height/4);
+    fill(255, 69, 0);
+    rect( (5 * width/6) - (2*spacing), (height/10), (width/6), (2 * height/10) );
+    
+    fill(0);
+    text("Rear",  width*0.905, height*.215);
+    fill(255);
+    text("Rear Windshield Defrost: ON", width*.5, height*.25);
   }
   
   
