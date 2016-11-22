@@ -42,7 +42,7 @@ int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of 
 
 int speed = 0; //Speed in km/h  --  Read in from file
 
-int screen = 0; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=date()
+int screen = 3; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=date()
 
 //Variables used to display whether the windows are defrosting or not
 int front = 0;
@@ -534,20 +534,23 @@ void date()
   
   //Draw the buttons to display and change the date
   fill(0);
-  //These first three are for the 'day' field and the arrows which both raise and lower the variable when clicked
+  //These first three 'rects' are for the 'day' field and the arrows which both raise and lower the variable when clicked
   rect(width*.1f, height/10, width*.2f, height/10);
   rect(width*.1f, 2*height/10, width*.2f, 3*height/10);
   rect(width*.1f, 5*height/10, width*.2f, height/10);
   
-  //These first three are for the 'month' field and the arrows which both raise and lower the variable when clicked
+  
+  //The next three 'rects' are for the 'month' field and the arrows which both raise and lower the variable when clicked
   rect(width*.4f, height/10, width*.2f, height/10);
   rect(width*.4f, 2*height/10, width*.2f, 3*height/10);
   rect(width*.4f, 5*height/10, width*.2f, height/10);
   
-  //These first three are for the 'year' field and the arrows which both raise and lower the variable when clicked
+  
+  //The next three 'rects' are for the 'year' field and the arrows which both raise and lower the variable when clicked
   rect(width*.7f, height/10, width*.2f, height/10);
   rect(width*.7f, 2*height/10, width*.2f, 3*height/10);
   rect(width*.7f, 5*height/10, width*.2f, height/10);
+  
   
   
   //These are the two boxes at the bottom of the settings screen  --  These change the speed to mph and
@@ -555,7 +558,42 @@ void date()
   rect(5.5f*width/10, 6.5f*height/10, 3.5f*width/10, 2*height/10);
   
   
-  //
+  
+  
+  fill(255);   //fill in white for the text below
+  fontSize = ( (height * width)/8000 );   //Font size scales with chosen display dimensions
+  textFont(f, fontSize);  //sets font size of 'PFont f'
+  
+  //text for the '+' boxes first
+  text("+", width*0.2, height*.185);
+  text("+", width*0.5, height*.185);
+  text("+", width*0.8, height*.185);
+  
+  //Now for the '-' boxes
+  text("-", width*0.2, height*.58);
+  text("-", width*0.5, height*.58);
+  text("-", width*0.8, height*.58);
+  
+  //Finally the text for the date boxes
+  text(day, width*0.2, height*.385);
+  text(month, width*0.5, height*.385);
+  text(year, width*0.8, height*.385);
+  
+  
+  
+  fontSize = ( (height * width)/13500 );   //Font size scales with chosen display dimensions
+  textFont(f, fontSize);  //sets font size of 'PFont f'
+  
+  //Text for toggling between moh and kmph
+  text("Toggle", width*0.265, height*.725);
+  text("MpH/KMpH", width*0.265, height*.8);
+  
+  
+  //Text for reseting default temp
+  text("Reset A/C", width*0.725, height*.725);
+  text("Temperature", width*0.725, height*.8);
+  
+  
 }
 
 
@@ -740,3 +778,5 @@ void keyPressed()
   }
   
 }
+
+//End of assignment! :)
