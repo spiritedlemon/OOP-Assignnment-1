@@ -12,7 +12,7 @@
 /*
   Features to add:
   Finish date()  --  mousePressed() stuff :(
-  Read in 2/3 things (Class)
+  Class setup, read in and assign values
   Clean up text on home screen :(
   
   Fill out the README.txt
@@ -53,6 +53,8 @@ int enginetemp = 0;      //system()  --  Used to display engine temp which will 
 float eleclvl = 25;    //Starts at 25 and increments every second  --  home_screen()
 
 
+ArrayList<Data> info = new ArrayList<Data>();    //info = name of array list  -->  Data = name of class
+
 
 void setup()
 {
@@ -64,6 +66,24 @@ void setup()
     println("Service due in: ");
     println(service);
   }
+  
+  
+  info.clear();
+  
+  
+  
+  String[] lines = loadStrings("data.txt");
+  for(String line: lines)
+  {
+    Data data = new Data(line);
+    info.add(data);
+    
+    
+  }
+  speed = info.get(0).input;
+  int temp2 = info.get(0).input;
+  println(temp2);
+  
 }
 
 
