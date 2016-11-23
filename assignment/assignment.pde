@@ -11,6 +11,7 @@
 
 /*
   Features to add:
+  
   Finish date()  --  mousePressed() stuff :(
   
   Fill out the README.txt
@@ -32,6 +33,7 @@ int year = year();
 
 int tempEX = 0;    //Changes the color of the font based on temperature --  range of '-10' to '40' --  Read in from file
 int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of inside the car  --  range of '16' to '28'
+int tempDEFAULT = 20;
 
 int speed = 0; //Speed in km/h  --  Read in from file
 
@@ -578,9 +580,9 @@ void date()
   
   
   
-  //These are the two boxes at the bottom of the settings screen  --  These change the speed to mph and
-  rect(width/10, 6.5f*height/10, 3.5f*width/10, 2*height/10);
-  rect(5.5f*width/10, 6.5f*height/10, 3.5f*width/10, 2*height/10);
+  //These are the two boxes at the bottom of the settings screen  --  These change the speed to mph and reset the temperature to default
+  rect(width/10, 6.5f*height/10, 3.5f*width/10, 2*height/10);    //Speed change
+  rect(5.5f*width/10, 6.5f*height/10, 3.5f*width/10, 2*height/10); //Default temp
   
   
   
@@ -695,6 +697,73 @@ void mousePressed()    //The first half of this function is used to navigate thr
           screen = 0;
         }
     }
+    
+    
+    
+    //Part 2: date() (settings)
+    {
+      
+      if(screen == 3)
+      {
+        
+        //First when the '+' button is clicked the date is changed
+        if( (mouseX > width*0.1) && (mouseX < width*.3) && (mouseY > height*.1) && (mouseY < height*.2) )
+        {
+          day++;
+          if(day == 31)    //Loop back to the 1st day of the month
+          {
+            day = 1;
+          }
+        }
+        else if( (mouseX > width*.4) && (mouseX < width*.6) && (mouseY > height*.1) && (mouseY < height*.2) )
+        {
+          month++;
+          if(month == 13)  //Loop back to January
+          {
+            month = 1;
+          }
+        }
+        else if( (mouseX > width*.7) && (mouseX < width*.9) && (mouseY > height*.1) && (mouseY < height*.2) )
+        {
+          year++;
+        }
+        
+        
+        //now the '-' button
+        if( (mouseX > width*0.1) && (mouseX < width*.3) && (mouseY > height*.5) && (mouseY < height*.6) )
+        {
+         day = day - 1;
+         if(day == 0)
+         {
+           day = 30;
+         }
+        }
+        else if( (mouseX > width*0.4) && (mouseX < width*.6) && (mouseY > height*.5) && (mouseY < height*.6) )
+        {
+         month = month - 1;
+         if(month == 0)
+         {
+           month = 12;
+         }
+        }
+        else if( (mouseX > width*0.7) && (mouseX < width*.9) && (mouseY > height*.5) && (mouseY < height*.6) )
+        {
+          year = year - 1;
+        }
+        
+        //When the convert to MpH button is clicked
+        if( (mouseX > width*0.1) && (mouseX < width*.45) && (mouseY > height*.65) && (mouseY < height*.85) )
+        {
+          println("working");
+        }
+        else if( (mouseX > width*0.55) && (mouseX < width*.9) && (mouseY > height*.65) && (mouseY < height*.85) )  //For reseting speed to default
+        {
+          tempINT = tempDEFAULT;
+        }
+        
+      }//End of interactions from date() (settings)
+      
+    }
   
 }//End of mousePressed()
 
@@ -744,8 +813,8 @@ void mouseClicked()  //This function is used in the ac() function to alter varia
      
      
     //If statement to turn on/off the windshield defroster
-    if( ( mouseX > (10) ) && (mouseX < width/6 + (2*spacing)) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Front defroster 
-    {             //^ This ten is because the box starts 10 px away from the edge so its needed to line up the click correctly
+    if( ( mouseX > (10) ) && (mouseX < width/6 + 10) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Front defroster 
+    {             //^ This ten is because the box(^and this one) starts 10 px away from the edge so its needed to line up the click correctly
       
       if(screen == 1)
       {
