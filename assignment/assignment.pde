@@ -12,7 +12,6 @@
 /*
   Features to add:
   Finish date()  --  mousePressed() stuff :(
-  Remove the Spacing variable
   
   Fill out the README.txt
 
@@ -22,9 +21,6 @@
 
 
 //***Global Variables***
-
-int spacing = ( (height * width)/1920 );    //This is used to space out displays of time, date and temp primarily -- It = ~5 on the recommended size setting (800, 600)
-//int spacing = ( (height * width)/96000 ); 
 
 float randlvl = random(1, 4);       //Used to give a random level to the fuel meter, because no one ever has 100% fuel always
 float tyreP = random(165, 200);      //Used to assign random value for tyre pressure
@@ -242,12 +238,10 @@ void home_screen()
     text(timeM, width*.55, height * 0.1f);
   }
   
-  
   text(" : ", width*.5, height * 0.1f);
   
   
   
-  //Reminder spacing = ~5 on recommended size  --  Should scale to bigger and smaller screens
   //Displaying the Date
   
   text(day, width*.4, height * 0.2f);    
@@ -371,7 +365,7 @@ void ac()
   if(front == 0)
   {
     fill(0);
-    rect( (2*spacing), (height/10), (width/6), (2 * height/10) ); 
+    rect( (10), (height/10), (width/6), (2 * height/10) );   //starts at ten just so its not touching the edge of the screen to look better
     
     fill(255);
     text("Front",  width*0.095, height*.215);
@@ -380,7 +374,7 @@ void ac()
   else if(front == 1)
   {
     fill(255, 69, 0);
-    rect( (2*spacing), (height/10), (width/6), (2 * height/10) ); 
+    rect( (10), (height/10), (width/6), (2 * height/10) ); 
     
     fill(0);
     text("Front",  width*0.095, height*.215);
@@ -391,7 +385,7 @@ void ac()
   if(rear == 0)
   {
     fill(0);
-    rect( (5 * width/6) - (2*spacing), (height/10), (width/6), (2 * height/10) );
+    rect( (5 * width/6) - (10), (height/10), (width/6), (2 * height/10) );    //again just 10px away from the edge for aesthetics
     
     fill(255);
     text("Rear",  width*0.905, height*.215);
@@ -400,7 +394,7 @@ void ac()
   else if(rear == 1)
   {
     fill(255, 69, 0);
-    rect( (5 * width/6) - (2*spacing), (height/10), (width/6), (2 * height/10) );
+    rect( (5 * width/6) - (10), (height/10), (width/6), (2 * height/10) );
     
     fill(0);
     text("Rear",  width*0.905, height*.215);
@@ -434,7 +428,6 @@ void system()
   fill(255);  //Color of word (white)
   
   //Center and print the word
-  textAlign(CENTER);
   text("Home", width/2, height * 0.97f);
   
   
@@ -446,10 +439,10 @@ void system()
   fontSize = ( (height * width)/15000 );
   textFont(f, fontSize);
   
-  textAlign(CENTER);
-  text("50'C", width/10, height/10 - spacing);  //Reminder: spacing is a global variable that scales based onheight and width and == ~5 on (800, 600)
-  text("Engine Temperature", width/2, height/10 - 2*spacing);
-  text("130'C", 9*width/10, height/10 - spacing);
+  
+  text("50'C", width/10, height*.09);  
+  text("Engine Temperature", width/2, height*.085);
+  text("130'C", 9*width/10, height*.09);
   
   
   //Engine Temperature gauge    Engine temperature:    50 - 130  --  90 avg
@@ -751,8 +744,8 @@ void mouseClicked()  //This function is used in the ac() function to alter varia
      
      
     //If statement to turn on/off the windshield defroster
-    if( ( mouseX > (spacing*2) ) && (mouseX < width/6 + (2*spacing)) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Front defroster
-    {
+    if( ( mouseX > (10) ) && (mouseX < width/6 + (2*spacing)) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Front defroster 
+    {             //^ This ten is because the box starts 10 px away from the edge so its needed to line up the click correctly
       
       if(screen == 1)
       {
@@ -771,7 +764,7 @@ void mouseClicked()  //This function is used in the ac() function to alter varia
     }
     
     
-    if( ( mouseX > (5*width/6 - (2*spacing) ) ) && (mouseX < width) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Rear defroster
+    if( ( mouseX > (5*width/6 - (10) ) ) && (mouseX < width) && (mouseY > height/10) && (mouseY < 3*height/10) )  //Rear defroster
     {
       
       if(screen == 1)
