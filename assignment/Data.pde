@@ -1,4 +1,4 @@
-//Class to read in three variables from 'data.txt'
+//Class to read in three variables from 'data.csv'  --  see setup to see this being used
 
 class Data
 {
@@ -8,10 +8,9 @@ class Data
   
   Data(TableRow row)
   {
-    //String[] fields = line.split("=");
+    
     description = row.getString(0);
     input = row.getInt(1);
-    
     
   }
   

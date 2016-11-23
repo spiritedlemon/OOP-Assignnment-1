@@ -12,8 +12,7 @@
 /*
   Features to add:
   Finish date()  --  mousePressed() stuff :(
-  Class setup, read in and assign values
-  Clean up text on home screen :(
+  Remove the Spacing variable
   
   Fill out the README.txt
 
@@ -53,7 +52,7 @@ int enginetemp = 0;      //system()  --  Used to display engine temp which will 
 float eleclvl = 25;    //Starts at 25 and increments every second  --  home_screen()
 
 
-ArrayList<Data> info = new ArrayList<Data>();    //info = name of array list  -->  Data = name of class
+ArrayList<Data> info = new ArrayList<Data>();    //info = name of array list  -->  Data = name of class  --  Used in setuo to read in variables from 'data.csv'
 
 
 void setup()
@@ -91,7 +90,7 @@ void setup()
 void home_screen()
 {
   
-  background(50);
+  background(50);    //gray 
   stroke(0, 255, 255);  //cyan
   fill(0);
   
@@ -204,10 +203,10 @@ void home_screen()
   
   
   //'Center Line' - Divides up the home screen
-  line(width*3/9, height/3, width*6/9, height/3);
+  line(width/3, height/3, 2*width/3, height/3);
   
   
-  //Displaying text above the center line  --  All this was implemented above, i'm leaving it here for clarity
+  //Displaying text above the center line  --  All this was done above, i'm leaving it here for clarity/as a reminder
   
   //PFont f;
   //float fontSize = ( (height * width)/13333.33 );   //Font size scales with chosen display dimensions
@@ -221,48 +220,45 @@ void home_screen()
   int timeH = hour();      //Hour  
   int timeM = minute();    //Minute
   
-  textAlign(RIGHT);
+  textAlign(CENTER);
   if(timeH > 9)  //If time is < 10 it only displays one digit so this if statement should solve it
   {
-    text(timeH, width/2 - (spacing*2), height * 0.1f);
+    text(timeH, width*.465, height * 0.1f);
   }
   else
   {
-    text('0', width/2 - (spacing*2), height * 0.1f);
-    text(timeH, width/2 - (spacing*6), height * 0.1f);    //Reminder spacing = ~5 on recommended size  --  Should scale to bigger and smaller screens
+    text('0', width*.45, height * 0.1f);
+    text(timeH, width*.48, height * 0.1f);    
   }
   
-  textAlign(LEFT);
+  
   if(timeM > 9)    //If time is < 10 it only displays one digit so this if statement should solve it
   {
-    text(timeM, width/2 + (spacing*2), height * 0.1f);
+    text(timeM, width*.535, height * 0.1f);
   }
   else
   {
-    text('0', width/2 + (spacing*2), height * 0.1f);
-    text(timeM, width/2 + (spacing*6), height * 0.1f);
+    text('0', width*.52, height * 0.1f);
+    text(timeM, width*.55, height * 0.1f);
   }
   
-  textAlign(CENTER);
-  text(" : ", width/2, height * 0.1f);
+  
+  text(" : ", width*.5, height * 0.1f);
   
   
+  
+  //Reminder spacing = ~5 on recommended size  --  Should scale to bigger and smaller screens
   //Displaying the Date
-  textAlign(RIGHT);
-  text(day, width/2 - (spacing*9), height * 0.2f);    //Reminder spacing = ~5 on recommended size  --  Should scale to bigger and smaller screens
-  textAlign(CENTER);
-  text("/", width/2 - (spacing*7), height * 0.2f);
-  textAlign(CENTER);
-  text(month, width/2 - (spacing*2), height * 0.2f);
-  textAlign(CENTER);
-  text("/", width/2 + (spacing*3), height * 0.2f);
-  textAlign(LEFT);
-  text(year, width/2 + (spacing*5), height * 0.2f);
+  
+  text(day, width*.4, height * 0.2f);    
+  text("/", width*.45, height * 0.2f);
+  text(month, width*.5, height * 0.2f);
+  text("/", width*.55, height * 0.2f);
+  text(year, width*.625, height * 0.2f);
   
   
   //Displaying temp 
-  textAlign(LEFT);
-  text("'C", width/2 + (spacing), height * 0.3f);
+  text("'C", width*.53, height * 0.3f);
   
   
   int scaleT1 = 0;
@@ -271,16 +267,16 @@ void home_screen()
   scaleT1 = (tempEX + 10) * 5;  //Current temp +10 (to avoid negatives) and then *5 (used for changing the color)
   scaleT2 = 250 - scaleT1;
   
-  textAlign(RIGHT);
+  
   if(tempEX>= -10 && tempEX<= 40)
   {
     fill(scaleT1, 0, scaleT2);
-    text(tempEX, width/2 - (spacing), height * 0.3f);
+    text(tempEX, width*.47, height * 0.3f);
   }
   else
   {
     fill(255);
-    text("--", width/2 - (spacing), height * 0.3f);
+    text("--", width*.47, height * 0.3f);
   }
   
   
@@ -641,7 +637,7 @@ void date()
 void draw()
 {
   
-  switch(screen)
+  switch(screen)      //this is used to switch screens using the number keys to call the correct function
   {
     case 0:
       home_screen();
@@ -671,12 +667,12 @@ void mousePressed()    //The first half of this function is used to navigate thr
     {
         if(screen == 0)
         {
-          println("In ac() now");     //Alerting user which function currently is in use  --  Mainly for eror checking
+          //println("In ac() now");     //Alerting user which function currently is in use  --  Mainly for eror checking  --  Removed cause it's annoying
           screen = 1;
         }
         else
         {
-          println("In home_screen() now");
+          //println("In home_screen() now");
           screen = 0;
         }
     }
@@ -684,12 +680,12 @@ void mousePressed()    //The first half of this function is used to navigate thr
     {
         if(screen == 0)
         {
-          println("In system() now");
+          //println("In system() now");
           screen = 2;
         }
         else
         {
-          println("In home_screen() now");
+          //println("In home_screen() now");
           screen = 0;
         }
     }
@@ -697,12 +693,12 @@ void mousePressed()    //The first half of this function is used to navigate thr
     {
         if(screen == 0)
         {
-          println("In date() now");
+          //println("In date() now");
           screen = 3;
         }
         else
         {
-          println("In home_screen() now");
+          //println("In home_screen() now");
           screen = 0;
         }
     }
@@ -815,4 +811,4 @@ void keyPressed()
   
 }
 
-//End of assignment! :)
+//
