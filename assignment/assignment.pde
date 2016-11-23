@@ -735,7 +735,7 @@ void mousePressed()    //The first half of this function is used to navigate thr
          day = day - 1;
          if(day == 0)
          {
-           day = 30;
+           day = 31;
          }
         }
         else if( (mouseX > width*0.4) && (mouseX < width*.6) && (mouseY > height*.5) && (mouseY < height*.6) )
