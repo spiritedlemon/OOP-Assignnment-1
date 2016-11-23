@@ -9,16 +9,6 @@
 
 
 
-/*
-  Features to add:
-  
-  Finish date()  --  mousePressed() stuff :(
-  
-  Fill out the README.txt
-
-
-*/
-
 
 
 //***Global Variables***
@@ -36,6 +26,7 @@ int tempINT = 20;     //Temperature used in ac() and system() -- Temperature of 
 int tempDEFAULT = 20;
 
 int speed = 0; //Speed in km/h  --  Read in from file
+int check = 0;
 
 int screen = 0; //Menu selection -- 0=home_screen(), 1=ac(), 2=system(), 3=date()
 
@@ -289,7 +280,16 @@ void home_screen()
   textAlign(CENTER);
   if(speed > -1 && speed < 221)
   {
-    text(speed, width/2, height * .75f);
+     if(check == 0)  //Check if speed should be displayed in mph or kmph
+     {
+      text(speed, width/2, height * .75f);
+     }
+     else
+     {
+       float speedtemp = speed*0.621371;    //convert kmph to mph in decimal
+       int speedtempi = int(speedtemp);     //convert decimal to integer
+       text(speedtempi, width/2, height * .75f);    //Display speed in mph
+     }
   }
   else
   {
@@ -754,7 +754,16 @@ void mousePressed()    //The first half of this function is used to navigate thr
         //When the convert to MpH button is clicked
         if( (mouseX > width*0.1) && (mouseX < width*.45) && (mouseY > height*.65) && (mouseY < height*.85) )
         {
-          println("working");
+          if(check == 0)
+          {
+            check = 1;
+            println("Now displaying speed in miles per hour");
+          }
+          else
+          {
+            check = 0;
+            println("Now displaying speed in kilometers per hour");
+          }
         }
         else if( (mouseX > width*0.55) && (mouseX < width*.9) && (mouseY > height*.65) && (mouseY < height*.85) )  //For reseting speed to default
         {
