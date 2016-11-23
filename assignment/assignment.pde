@@ -68,21 +68,20 @@ void setup()
   }
   
   
-  info.clear();
   
-  
-  
-  String[] lines = loadStrings("data.txt");
-  for(String line: lines)
+  //Reading in data from a file and assigning it to variables
+  Table t = loadTable("data.csv");
+  for(int i = 0 ; i < t.getRowCount(); i ++)
   {
-    Data data = new Data(line);
+    TableRow row = t.getRow(i);
+    Data data = new Data(row);
     info.add(data);
-    
-    
   }
-  speed = info.get(0).input;
-  int temp2 = info.get(0).input;
-  println(temp2);
+  
+  speed = t.getInt(0,1);      //Assigns speed to the int in the second col of the first row
+  tempEX = t.getInt(1,1);     //Assigns Temperature to the int in the second col of the second row
+  totalkm = t.getInt(2,1);    //Assigns total kilometers to the int in the second col of the third row
+  
   
 }
 

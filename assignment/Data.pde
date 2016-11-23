@@ -6,11 +6,11 @@ class Data
   int input;
   
   
-  Data(String line)
+  Data(TableRow row)
   {
-    String[] fields = line.split("=");
-    description = fields[0];
-    input = Integer.parseInt(fields[1]);
+    //String[] fields = line.split("=");
+    description = row.getString(0);
+    input = row.getInt(1);
     
     
   }

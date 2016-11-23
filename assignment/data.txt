@@ -1,3 +1,0 @@
-speed=50
-temp=230
-currentKM=5000
