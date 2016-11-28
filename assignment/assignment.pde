@@ -37,7 +37,7 @@ int rear = 0;
 int totalkm = 5000;      //Total KM travelled by the car          -- system()
 float servicef = random(3000, 20000);      //Next service in this many kilometers  -- system()  -- Randomized for fun :)
 int service = int(servicef);               //Converts to an int
-int enginetemp = 0;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
+int enginetemp = 30;      //system()  --  Used to display engine temp which will slowly rise to a normal temperature
 float eleclvl = 25;    //Starts at 25 and increments every second  --  home_screen()
 
 
