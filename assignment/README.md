@@ -2,7 +2,7 @@ OOP-Assignment     --     DT - 228/2     --     Simon O'Leary ( C15413218 )
 
 
 Embeded Video:
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1WEZDGG-6vM" frameborder="0" allowfullscreen></iframe>
+![Video](http://img.youtube.com/vi/1WEZDGG-6vM/0.jpg)](http://www.youtube.com/watch?v=1WEZDGG-6vM)
 
 Youtube link:
 https://www.youtube.com/watch?v=1WEZDGG-6vM
